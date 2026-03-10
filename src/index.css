@@ -1,0 +1,295 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Custom Font: 에이투지체 (AtoZ) ===== */
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-1Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-2ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-3Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-4Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-5Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-6SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-7Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-8ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AtoZ";
+  src: url("/fonts/에이투지체-woff2-v1.001/에이투지체-9Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== Design Tokens ===== */
+:root {
+  /* Colors - Cartoon Illustration Style */
+  --color-bg: #FAFAF8;
+  /* Warm off-white */
+  --color-surface: #FFFFFF;
+  /* Pure white cards */
+  --color-border: #E8E6E1;
+  /* Soft warm gray border */
+  --color-text-primary: #2C2C2C;
+  /* Near-black */
+  --color-text-secondary: #7A7670;
+  /* Warm gray */
+  --color-text-muted: #B0ADA8;
+  /* Light warm gray */
+
+  /* Accent - Soft Sage/Teal (matches illustration's cool gray tones) */
+  --color-accent: #6B8F71;
+  /* Muted sage green */
+  --color-accent-light: #EEF3EF;
+  /* Very light sage */
+  --color-accent-hover: #5A7A60;
+  /* Darker sage */
+
+  /* Danger/Contrast */
+  --color-contrast: #8B7355;
+  /* Warm brown (for "worst match") */
+  --color-contrast-light: #F5F0E8;
+  /* Light warm beige */
+
+  font-family: "AtoZ", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  /* Base font size */
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 480px;
+  /* Enforce mobile app width */
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: "AtoZ", system-ui, sans-serif;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+  /* Soft shadow for desktop view */
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional: Darken the true html background so the mobile app shell stands out on desktop */
+html {
+  background-color: #E8E6E1;
+}
+
+#root {
+  width: 100%;
+}
+
+/* ===== Base Elements ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+button {
+  border-radius: 12px;
+  border: 1.5px solid var(--color-border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ===== Utility Classes ===== */
+.page-bg {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dog-card {
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* Progress bar track */
+.progress-track {
+  background-color: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+/* Progress bar fill */
+.progress-fill {
+  background-color: var(--color-accent);
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+/* Answer button */
+.answer-btn {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  text-align: left;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.answer-btn:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+  color: var(--color-accent-hover);
+}
+
+/* Primary CTA button */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(107, 143, 113, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  box-shadow: 0 6px 20px rgba(107, 143, 113, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Tag chip */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  background-color: var(--color-accent-light);
+  color: var(--color-accent-hover);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
