@@ -12,7 +12,7 @@ function Landing() {
     exit: { opacity: 0, y: -10 },
   };
 
-  //TEST: Supabase에서 데이터 개수 가져오기************
+  /*TEST: Supabase에서 데이터 개수 가져오기************
   const [count, setCount] = useState(0);
   const getCount = async () => {
     const { count: rowCount, error } = await supabase
@@ -28,7 +28,7 @@ function Landing() {
   useEffect(() => {
     getCount();
   }, []);
-  //************************************************
+*************************************************/
 
 
   return (
