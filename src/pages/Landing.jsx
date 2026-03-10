@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useEffect, useState } from 'react';
 import { supabase } from "../lib/supabaseClient";
 
 function Landing() {
@@ -11,25 +10,6 @@ function Landing() {
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -10 },
   };
-
-  //*TEST: Supabase에서 데이터 개수 가져오기************
-  const [count, setCount] = useState(0);
-  const getCount = async () => {
-    const { count: rowCount, error } = await supabase
-      .from('Users')
-      .select('*', { count: 'exact', head: true });
-
-    if (error) {
-      console.error('데이터 가져오기 실패: ', error);
-    } else {
-      setCount(rowCount);
-    }
-  };
-  useEffect(() => {
-    getCount();
-  }, []);
-//*************************************************
-
 
   return (
     <motion.main
@@ -125,7 +105,7 @@ function Landing() {
           >
             현재 총{" "}
             <span style={{ color: "var(--color-accent)", fontWeight: 700 }}>
-              {count}
+              {UserCounter()}
             </span>{" "}
             명이 참여했습니다
           </div>
