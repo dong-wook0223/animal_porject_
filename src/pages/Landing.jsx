@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UsersCounter } from "../lib/supabaseClient";
+import { UsersCounter } from "../lib/hooks";
 
 function Landing() {
   const navigate = useNavigate();
@@ -105,7 +105,7 @@ function Landing() {
           >
             현재 총{" "}
             <span style={{ color: "var(--color-accent)", fontWeight: 700 }}>
-              {UserCounter}
+              {UsersCounter()}
             </span>{" "}
             명이 참여했습니다
           </div>
