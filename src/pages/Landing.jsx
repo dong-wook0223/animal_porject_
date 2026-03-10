@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UserCounter } from "../lib/supabaseClient";
+import { UsersCounter } from "../lib/supabaseClient";
 
 function Landing() {
   const navigate = useNavigate();

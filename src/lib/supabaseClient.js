@@ -32,4 +32,4 @@ function UsersCounter() {
   return (userCount);
 }
 
-export default UserCounter;
+export default UsersCounter;
