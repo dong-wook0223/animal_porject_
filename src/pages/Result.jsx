@@ -113,24 +113,25 @@ export default function Result() {
 
 
   const getNickname = () => {
-    // [리뉴얼] 5대 카테고리 점수 합산 로직
+    // [리뉴얼] 5대 카테고리 점수 합산 로직 (새로운 유형)
     const categoryScores = [
-      { name: '🏃 E-너지', score: (scores['outgoing'] || 0) + (scores['friendly'] || 0) + (scores['cheerful'] || 0) },
-      { name: '⚔️ 야생생존력', score: (scores['fearless'] || 0) + (scores['confident'] || 0) + (scores['size'] || 0) },
-      { name: '❤️ 애착집착도', score: (scores['jealous'] || 0) + (scores['lifelongFriend'] || 0) },
-      { name: '🔥 갓생지수', score: (scores['activitylevel'] || 0) + (scores['playful'] || 0) },
-      { name: '🧠 독고다이', score: (scores['independent'] || 0) + (scores['quickWitted'] || 0) + (scores['gentle'] || 0) },
+      { name: '🔥 에너지 폭발', score: (scores['activitylevel'] || 0) + (scores['playful'] || 0) + (scores['confident'] || 0) + (scores['outgoing'] || 0) },
+      { name: '🛡️ 강철 멘탈', score: (scores['fearless'] || 0) + (scores['independent'] || 0) + (scores['gentle'] || 0) + (scores['size'] || 0) },
+      { name: '🦊 눈치 만렙', score: (scores['quickWitted'] || 0) + (scores['jealous'] || 0) + (scores['cheerful'] || 0) },
+      { name: '🌻 사랑 둥이', score: (scores['lifelongFriend'] || 0) + (scores['friendly'] || 0) + (scores['gentle'] || 0) },
+      { name: '🐾 질척 왕', score: (scores['jealous'] || 0) + (scores['outgoing'] || 0) + (scores['playful'] || 0) + (scores['cheerful'] || 0) },
     ];
 
     // 가장 높은 점수의 카테고리 추출
     const topCategory = categoryScores.sort((a, b) => b.score - a.score)[0];
 
+    // 새로운 타이틀 세트
     const TITLES = {
-      '🏃 E-너지': ['축제의 주인공', '분위기 메이커', '모두의 친구'],
-      '⚔️ 야생생존력': ['용감무쌍한 리더', '강인한 수호자', '어디서나 당당한'],
-      '❤️ 애착집착도': ['사랑밖에 모르는', '일편단심 사랑꾼', '따스한 감성술사'],
-      '🔥 갓생지수': ['지치지 않는 열정', '부지런한 프로갓생러', '활동량 만렙'],
-      '🧠 독고다이': ['현명한 전략가', '여유로운 마이웨이', '스마트한 지휘자'],
+      '🔥 에너지 폭발': ['우리 집 무파사', '에너자이저', '인싸댕'],
+      '🛡️ 강철 멘탈': ['동네 대장님', '평화주의 군자', '시크방패'],
+      '🦊 눈치 만렙': ['여우 탈을 쓴 강아지', '눈치백단', '간식천재 전략가'],
+      '🌻 사랑 둥이': ['영원한 내 편', '천사견', '따뜻한 위로자'],
+      '🐾 질척 왕': ['주인 바라기 껌딱지', '24시간 밀착형', '잔망댕이 사랑꾼'],
     };
 
     const variants = TITLES[topCategory.name] || ['매력적인 반려인'];
@@ -142,31 +143,31 @@ export default function Result() {
   const radarData = useMemo(() => {
     if (isEmpty) return [];
 
-    // [리뉴얼] 13개 성향을 5개의 감성 카테고리로 재그룹화 (정합성 보강)
+    // [리뉴얼] 13개 성향을 새로운 5개의 감성 카테고리로 재그룹화
     return [
       {
-        subject: '🏃 E-너지 (인싸력)',
-        A: (scores['outgoing'] || 0) + (scores['friendly'] || 0) + (scores['cheerful'] || 0) + (scores['playful'] || 0),
+        subject: '🔥 에너지 폭발',
+        A: (scores['activitylevel'] || 0) + (scores['playful'] || 0) + (scores['confident'] || 0) + (scores['outgoing'] || 0),
         fullMark: 8 // 4 traits * 2 slots
       },
       {
-        subject: '⚔️ 야생생존력 (용기)',
-        A: (scores['fearless'] || 0) + (scores['confident'] || 0) + (scores['size'] || 0),
+        subject: '🛡️ 강철 멘탈',
+        A: (scores['fearless'] || 0) + (scores['independent'] || 0) + (scores['gentle'] || 0) + (scores['size'] || 0),
+        fullMark: 8 // 4 traits * 2 slots
+      },
+      {
+        subject: '🐾 껌딱지',
+        A: (scores['jealous'] || 0) + (scores['outgoing'] || 0) + (scores['playful'] || 0) + (scores['cheerful'] || 0),
+        fullMark: 8 // 4 traits * 2 slots
+      },
+      {
+        subject: '🌻 사랑 둥이',
+        A: (scores['lifelongFriend'] || 0) + (scores['friendly'] || 0) + (scores['gentle'] || 0),
         fullMark: 6 // 3 traits * 2 slots
       },
       {
-        subject: '❤️ 애착집착도 (로맨틱)',
-        A: (scores['jealous'] || 0) + (scores['lifelongFriend'] || 0),
-        fullMark: 4 // 2 traits * 2 slots
-      },
-      {
-        subject: '🔥 갓생지수 (활동성)',
-        A: (scores['activitylevel'] || 0),
-        fullMark: 2 // 1 traits * 2 slots
-      },
-      {
-        subject: '🧠 독고다이 (똑똑)',
-        A: (scores['independent'] || 0) + (scores['quickWitted'] || 0) + (scores['gentle'] || 0),
+        subject: '🦊 눈치 만렙',
+        A: (scores['quickWitted'] || 0) + (scores['jealous'] || 0) + (scores['cheerful'] || 0),
         fullMark: 6 // 3 traits * 2 slots
       },
     ];
@@ -366,7 +367,7 @@ export default function Result() {
           !isEmpty && (
             <section className="mt-8 rounded-3xl p-6" style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
               <h3 className="text-lg font-bold text-center mb-1" style={{ color: "var(--color-text-primary)" }}>
-                내 성향 오각형 분석표
+                멍생 성향 분석표
               </h3>
               <p className="text-xs text-center mb-6" style={{ color: "var(--color-text-muted)" }}>
                 내가 문항에서 선택한 성향들의 밸런스예요
@@ -545,7 +546,7 @@ export default function Result() {
             className="text-base font-bold text-center mb-1"
             style={{ color: "var(--color-text-primary)" }}
           >
-            이 강아지는 얼마나 희귀할까?
+            이 강아지는 얼마나 있을까?
           </h3>
           <p
             className="text-xs text-center mb-6"
@@ -825,15 +826,7 @@ export default function Result() {
             </div>
           </div>
 
-          {/* ─── Disclaimer ─── */}
-          <div className="mt-8 px-2 pb-6 border-t pt-6" style={{ borderColor: "var(--color-border)" }}>
-            <p
-              className="text-[10px] leading-relaxed text-center"
-              style={{ color: "var(--color-text-muted)", fontSize: "0.75rem" }}
-            >
-              <strong>안내]</strong> 본 서비스는 유기동물 입양 및 봉사문화를 응원하기 위한 비영리 프로젝트입니다. 제공되는 정보는 각 단체의 공식 안내를 참조하였으나 실시간으로 변경될 수 있습니다. 봉사 및 입양 참여 전 반드시 해당 단체 홈페이지에서 최신 공고를 확인해주세요. 본 프로젝트는 해당 단체들과 공식 제휴 관계가 없으며, 관련 활동으로 발생하는 문제에 대해 책임을 지지 않습니다.
-            </p>
-          </div>
+
         </section>
 
         {/* ─── Footer Actions ─── */}

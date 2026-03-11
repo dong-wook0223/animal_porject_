@@ -18,7 +18,7 @@ function Landing() {
       animate="animate"
       exit="exit"
       transition={{ duration: 0.22, ease: "easeOut" }}
-      style={{ backgroundColor: "var(--color-bg)", height: "100dvh" }}
+      style={{ backgroundColor: "var(--color-bg)", minHeight: "100dvh" }}
       className="w-full h-full flex flex-col"
     >
       <div
@@ -34,15 +34,15 @@ function Landing() {
         }}
       >
         {/* Background Decorations */}
-        <div className="absolute -top-10 -left-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -right-10 w-60 h-60 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
         {/* ─── Top Logo ─── */}
         <div className="flex justify-center pt-2 pb-3">
           <span
             className="text-sm font-bold tracking-widest uppercase"
             style={{ color: "var(--color-accent)" }}
           >
-            멍BTI
+            너의 댕댕이는
           </span>
         </div>
 
@@ -58,7 +58,7 @@ function Landing() {
             className="font-extrabold leading-tight"
             style={{ color: "var(--color-text-primary)", fontSize: "1.6rem" }}
           >
-            나의 취향저격
+            나와 찰떡궁합
             <br />
             <span style={{ color: "var(--color-accent)" }}>댕댕이는 누구?</span>
           </h1>
@@ -81,15 +81,13 @@ function Landing() {
             alt="intro"
             className="w-full h-full object-contain p-6 transition-transform duration-700 group-hover:scale-105"
           />
-        </div>
-
-        {/* ─── Source & Disclaimer ─── */}
+        </div>        {/* ─── Source Credit ─── */}
         <div className="px-2 mb-4">
           <p
             className="text-[10px] leading-relaxed text-center"
             style={{ color: "var(--color-text-muted)", fontSize: "0.75rem" }}
           >
-            본 프로젝트는 국립축산과학원의 '국내 친숙 반려견' 24종과 한국애견연맹의 품종 정보를 바탕으로 제작되었습니다. 개별 반려견의 성격은 환경과 개체에 따라 차이가 있을 수 있으니, 본 결과는 가벼운 마음으로 재미있게 즐겨주세요.
+            본 프로젝트는 국립축산과학원의 '국내 친숙 반려견' 24종과 한국애견연맹의 품종 정보를 바탕으로 제작되었습니다. 각각의 강이지의 성격은 환경과 개체에 따라 차이가 있을 수 있으니, 본 결과는 가벼운 마음으로 재미있게 즐겨주세요.
           </p>
         </div>
 

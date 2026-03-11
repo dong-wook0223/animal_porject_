@@ -2,23 +2,23 @@ export const QUESTIONS = [
     {
         id: 1,
         title: "사회생활",
-        question: "퇴근 1분 전, 팀장님이 슬쩍 묻는다. '오늘 뭐해?'",
-        imagePrompt: "Manager asking employee plans at 5:59 PM, office setting",
-        emoji: "⌚",
+        question: "옆 부서 사람이 내 강아지 사진을 보더니 자기도 키우고 싶다며 이것저것 묻기 시작한다.",
+        imagePrompt: "asking puppy",
+        emoji: "🐶",
         answers: [
-            { text: "아... 오늘 비밀인데 (로그아웃 모드)", scores: { independent: 1 } },
-            { text: "저 오늘 핫플 가요! 부러우시죠? (인싸 모드)", scores: { friendly: 1 } },
+            { text: "아, 넵 근데 강아지마다 달라서 글쎄요.. ", scores: { independent: 1 } },
+            { text: "정말요? 저희 애가 좀 귀엽긴 하죠! 궁금한 거 다 물어보세요!", scores: { friendly: 1 } },
         ],
     },
     {
         id: 2,
         title: "인간관계",
-        question: "짝사랑하던 person에게 '자니?'라고 보냈는데 1시간째 안 읽음!",
+        question: "짝사랑하던 이성에게 '자니?'라고 보냈는데 1시간째 안 읽음!",
         imagePrompt: "late night message waiting, nervous facial expression",
         emoji: "💌",
         answers: [
             { text: "설마 나 차단했나? (오만가지 생각 중)", scores: { jealous: 1 } },
-            { text: "자나 보네 뭐. 꿀잠 자라 (쿨내 진동)", scores: { fearless: 1 } },
+            { text: "자나 보네 뭐. 꿀잠 자라 ", scores: { fearless: 1 } },
         ],
     },
     {
@@ -28,8 +28,8 @@ export const QUESTIONS = [
         imagePrompt: "crowded party atmosphere, high energy",
         emoji: "🥳",
         answers: [
-            { text: "워후! 여기가 오늘 내가 누울 자리인가? (텐션 합류)", scores: { outgoing: 1 } },
-            { text: "기 빨린다... 기둥 뒤에 숨어서 관찰 (관찰자 모드)", scores: { quickWitted: 1 } },
+            { text: "워후! 여기가 오늘 내가 누울 자리인가?", scores: { outgoing: 1 } },
+            { text: "가장 말 많은 사람 옆에 붙어서 리액션만 해주고 정보만 얻는다.", scores: { quickWitted: 1 } },
         ],
     },
     {
@@ -39,8 +39,8 @@ export const QUESTIONS = [
         imagePrompt: "mystery menu on a restaurant menu board",
         emoji: "❓",
         answers: [
-            { text: "인생은 모험! 미스터리 메뉴 고! (궁금해 죽음)", scores: { playful: 1 } },
-            { text: "괜히 망치지 말고 검증된 거 먹자 (안전제일)", scores: { gentle: 1 } },
+            { text: "인생은 모험! 미스터리 메뉴 고! ", scores: { playful: 1 } },
+            { text: "괜히 망치지 말고 검증된 거 먹자", scores: { gentle: 1 } },
         ],
     },
     {
@@ -50,8 +50,8 @@ export const QUESTIONS = [
         imagePrompt: "survival situation in an abandoned grocery store, reaching high",
         emoji: "🧟",
         answers: [
-            { text: "위험해도 무조건 올라가서 쟁취한다 (피지컬 승부)", scores: { size: 1 } },
-            { text: "일단 주변 지형지물 이용해 안전하게 (생존 본능)", scores: { activitylevel: 1 } },
+            { text: "위험해도 무조건 올라가서 쟁취한다 ", scores: { size: 1 } },
+            { text: "일단 주변 지형지물 이용해 안전하게 ", scores: { activitylevel: 1 } },
         ],
     },
     {
@@ -61,8 +61,8 @@ export const QUESTIONS = [
         imagePrompt: "winning a lottery ticket, big smile",
         emoji: "💰",
         answers: [
-            { text: "동네방네 자랑하고 성대한 파티각! (축제다 축제)", scores: { cheerful: 1 } },
-            { text: "평생을 약속한 베프 딱 한 명에게만 (우정 깊은)", scores: { lifelongFriend: 1 } },
+            { text: "동네방네 자랑하고 성대한 파티각! ", scores: { cheerful: 1 } },
+            { text: "평생을 약속한 딱 한 명에게만", scores: { lifelongFriend: 1 } },
         ],
     },
     {
@@ -89,13 +89,13 @@ export const QUESTIONS = [
     },
     {
         id: 9,
-        title: "자기개발",
+        title: "자기계발",
         question: "갓생 살기 도전! 새벽 5시 알람이 울린다면?",
         imagePrompt: "waking up early for exercise, dark room",
         emoji: "🌅",
         answers: [
-            { text: "일단 뛰쳐나가서 공원 10바퀴 런닝 (에너지 뿜뿜)", scores: { activitylevel: 1 } },
-            { text: "따뜻한 차 마시며 명상과 일기 쓰기 (평화로운 영혼)", scores: { gentle: 1 } },
+            { text: "일단 뛰쳐나가서 공원 10바퀴 런닝", scores: { activitylevel: 1 } },
+            { text: "따뜻한 차 마시며 명상과 일기 쓰기", scores: { gentle: 1 } },
         ],
     },
     {
@@ -105,13 +105,13 @@ export const QUESTIONS = [
         imagePrompt: "crowded lively cafe vs quiet cozy cafe",
         emoji: "☕",
         answers: [
-            { text: "사람 구경하며 떠들썩한 힙한 카페 (사람이 좋아)", scores: { friendly: 1 } },
-            { text: "숨겨진 뒷골목 나만 아는 아지트 (독립적 공간)", scores: { independent: 1 } },
+            { text: "사람 구경하며 떠들썩한 힙한 카페 ", scores: { friendly: 1 } },
+            { text: "숨겨진 뒷골목 나만 아는 아지트 ", scores: { independent: 1 } },
         ],
     },
     {
         id: 11,
-        title: "연애관",
+        title: "연애",
         question: "애인의 SNS에 모르는 사람이 하트를 엄청 눌렀다면?",
         imagePrompt: "looking at a smartphone looking jealous",
         emoji: "🧐",
@@ -133,13 +133,13 @@ export const QUESTIONS = [
     },
     {
         id: 13,
-        title: "피지컬/신뢰",
+        title: "책임",
         question: "내가 아끼는 사람이 당신에게 자신의 등을 맡긴다면?",
         imagePrompt: "strong character helping a friend, trust",
         emoji: "🛡️",
         answers: [
-            { text: "걱정 마, 나만 믿으라고! ", scores: { size: 1 } },
-            { text: "내가 모든 걸 해주지는 못해도 평생 곁에서 지켜줄게 ", scores: { lifelongFriend: 1 } },
+            { text: "버겁더라도 괜찮아, 내가 다 짊어지고 갈게 ", scores: { size: 1 } },
+            { text: "등 뒤는 나한테 맡겨, 난 절대 널 두고 떠나지 않아. ", scores: { lifelongFriend: 1 } },
         ],
     },
 ];

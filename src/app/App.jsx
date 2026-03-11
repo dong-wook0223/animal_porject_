@@ -8,6 +8,7 @@ import {
 import { AnimatePresence } from "framer-motion";
 
 import { Landing, Quiz, Result } from "../pages";
+import Footer from "../components/Footer";
 
 import { QuizProvider } from "../store/quizStore";
 import "./App.css";
@@ -26,6 +27,7 @@ function AnimatedRoutes() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>
+      <Footer />
     </main>
   );
 }
