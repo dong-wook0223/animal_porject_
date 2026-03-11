@@ -56,7 +56,7 @@ const TAG_TRANSLATIONS = {
   "gentle": "순둥이",
   "friendly": "인싸력 폭발",
   "outgoing": "외향적",
-  "activitylevel": "에너자이저",
+  "activitylevel": "무한동력",
   "size": "체격",
   "cheerful": "해피바이러스"
 };
@@ -113,62 +113,82 @@ export default function Result() {
 
 
   const getNickname = () => {
-    // [리뉴얼] 5대 카테고리 점수 합산 로직 (새로운 유형)
+    // [리뉴얼] 5대 카테고리 점수 합산 로직 (평균치 사용)
     const categoryScores = [
-      { name: '🔥 에너지 폭발', score: (scores['activitylevel'] || 0) + (scores['playful'] || 0) + (scores['confident'] || 0) + (scores['outgoing'] || 0) },
-      { name: '🛡️ 강철 멘탈', score: (scores['fearless'] || 0) + (scores['independent'] || 0) + (scores['gentle'] || 0) + (scores['size'] || 0) },
-      { name: '🦊 눈치 만렙', score: (scores['quickWitted'] || 0) + (scores['jealous'] || 0) + (scores['cheerful'] || 0) },
-      { name: '🌻 사랑 둥이', score: (scores['lifelongFriend'] || 0) + (scores['friendly'] || 0) + (scores['gentle'] || 0) },
-      { name: '🐾 질척 왕', score: (scores['jealous'] || 0) + (scores['outgoing'] || 0) + (scores['playful'] || 0) + (scores['cheerful'] || 0) },
+      { id: 'energy', name: '무한동력', score: ((scores['activitylevel'] || 0) + (scores['playful'] || 0) + (scores['confident'] || 0) + (scores['outgoing'] || 0)) / 4 },
+      { id: 'mental', name: '강철멘탈', score: ((scores['fearless'] || 0) + (scores['independent'] || 0) + (scores['gentle'] || 0) + (scores['size'] || 0)) / 4 },
+      { id: 'sense', name: '눈치만렙', score: ((scores['quickWitted'] || 0) + (scores['jealous'] || 0) + (scores['cheerful'] || 0)) / 3 },
+      { id: 'love', name: '사랑둥이', score: ((scores['lifelongFriend'] || 0) + (scores['friendly'] || 0) + (scores['gentle'] || 0)) / 3 },
+      { id: 'clingy', name: '껌딱지', score: ((scores['jealous'] || 0) + (scores['outgoing'] || 0) + (scores['playful'] || 0) + (scores['cheerful'] || 0)) / 4 },
     ];
 
-    // 가장 높은 점수의 카테고리 추출
-    const topCategory = categoryScores.sort((a, b) => b.score - a.score)[0];
+    // 점수 순 정렬
+    const sortedCategories = categoryScores.sort((a, b) => b.score - a.score);
+    const top1Category = sortedCategories[0];
+    const top2Category = sortedCategories[1];
 
-    // 새로운 타이틀 세트
+    // 명사 세트 (1위 카테고리 기준)
     const TITLES = {
-      '🔥 에너지 폭발': ['우리 집 무파사', '에너자이저', '인싸댕'],
-      '🛡️ 강철 멘탈': ['동네 대장님', '평화주의 군자', '시크방패'],
-      '🦊 눈치 만렙': ['여우 탈을 쓴 강아지', '눈치백단', '간식천재 전략가'],
-      '🌻 사랑 둥이': ['영원한 내 편', '천사견', '따뜻한 위로자'],
-      '🐾 질척 왕': ['주인 바라기 껌딱지', '24시간 밀착형', '잔망댕이 사랑꾼'],
+      'energy': ['우리 집 무파사', '에너자이저', '인싸댕'],
+      'mental': ['동네 대장님', '평화주의 군자', '시크방패'],
+      'sense': ['여우 탈을 쓴 강아지', '눈치백단', '간식천재 전략가'],
+      'love': ['영원한 내 편', '천사견', '따뜻한 위로자'],
+      'clingy': ['주인 바라기 껌딱지', '24시간 밀착형', '잔망댕이 사랑꾼'],
     };
 
-    const variants = TITLES[topCategory.name] || ['매력적인 반려인'];
-    const randomVariant = variants[Math.abs(top1?.id?.length || 0) % variants.length];
+    // 형용사 세트 (2위 카테고리 기준)
+    const ADJECTIVES = {
+      'energy': ['무한동력의', '세상 모든 게 궁금한', '앞만 보고 달리는', '축제 분위기인'],
+      'mental': ['위풍당당한', '득도한 선비 같은', '나만의 길을 걷는', '바위처럼 든든한'],
+      'sense': ['머릿속에 계산기 두드리는', '사랑받을 줄 아는', '분위기 메이커인', '천재견 지망생인'],
+      'love': ['뿌리 깊은 나무 같은', '솜사탕처럼 부드러운', '모두의 단짝 친구인', '마음 온도가 높은'],
+      'clingy': ['그림자처럼 맴도는', '그대밖에 모르는', '스킨십 중독자인', '관심이 고픈']
+    };
 
-    return `${randomVariant} ${topCategory.name} 마스터`;
+    const variantIndexModifier = Math.abs((top1?.id?.length || 0) + 1);
+    const variantIndexTitle = Math.abs((top1?.id?.length || 0) + 2);
+
+    // 2등 카테고리에 해당하는 형용사 배열
+    const modifiers = ADJECTIVES[top2Category.id] || ['매력적인'];
+    const randomModifier = modifiers[variantIndexModifier % modifiers.length];
+
+    // 1등 카테고리에 해당하는 명사(타이틀) 배열
+    const nounTitles = TITLES[top1Category.id] || ['강아지'];
+    const randomNounTitle = nounTitles[variantIndexTitle % nounTitles.length];
+
+    // 최종 결과 반환 (형용사 + 명사)
+    return `${randomModifier} ${randomNounTitle}`;
   };
 
   const radarData = useMemo(() => {
     if (isEmpty) return [];
 
-    // [리뉴얼] 13개 성향을 새로운 5개의 감성 카테고리로 재그룹화
+    // [리뉴얼] 13개 성향을 새로운 5개의 감성 카테고리로 재그룹화 (평균점수를 4배수로 스케일링하여 시각적 공정성 확보)
     return [
       {
-        subject: '🔥 에너지 폭발',
-        A: (scores['activitylevel'] || 0) + (scores['playful'] || 0) + (scores['confident'] || 0) + (scores['outgoing'] || 0),
-        fullMark: 8 // 4 traits * 2 slots
+        subject: '🔥 무한동력',
+        A: (((scores['activitylevel'] || 0) + (scores['playful'] || 0) + (scores['confident'] || 0) + (scores['outgoing'] || 0)) / 4) * 4,
+        fullMark: 8
       },
       {
-        subject: '🛡️ 강철 멘탈',
-        A: (scores['fearless'] || 0) + (scores['independent'] || 0) + (scores['gentle'] || 0) + (scores['size'] || 0),
-        fullMark: 8 // 4 traits * 2 slots
+        subject: '🛡️ 강철멘탈',
+        A: (((scores['fearless'] || 0) + (scores['independent'] || 0) + (scores['gentle'] || 0) + (scores['size'] || 0)) / 4) * 4,
+        fullMark: 8
       },
       {
         subject: '🐾 껌딱지',
-        A: (scores['jealous'] || 0) + (scores['outgoing'] || 0) + (scores['playful'] || 0) + (scores['cheerful'] || 0),
-        fullMark: 8 // 4 traits * 2 slots
+        A: (((scores['jealous'] || 0) + (scores['outgoing'] || 0) + (scores['playful'] || 0) + (scores['cheerful'] || 0)) / 4) * 4,
+        fullMark: 8
       },
       {
-        subject: '🌻 사랑 둥이',
-        A: (scores['lifelongFriend'] || 0) + (scores['friendly'] || 0) + (scores['gentle'] || 0),
-        fullMark: 6 // 3 traits * 2 slots
+        subject: '🌻 사랑둥이',
+        A: (((scores['lifelongFriend'] || 0) + (scores['friendly'] || 0) + (scores['gentle'] || 0)) / 3) * 4,
+        fullMark: 8
       },
       {
-        subject: '🦊 눈치 만렙',
-        A: (scores['quickWitted'] || 0) + (scores['jealous'] || 0) + (scores['cheerful'] || 0),
-        fullMark: 6 // 3 traits * 2 slots
+        subject: '🦊 눈치만렙',
+        A: (((scores['quickWitted'] || 0) + (scores['jealous'] || 0) + (scores['cheerful'] || 0)) / 3) * 4,
+        fullMark: 8
       },
     ];
   }, [scores, isEmpty]);
@@ -177,6 +197,7 @@ export default function Result() {
 
   const handleHome = () => {
     isResetting.current = true;
+    window.scrollTo(0, 0);
     navigate("/", { replace: true });
     // 페이지 이동 후 상태 초기화 (플리커링 방지)
     setTimeout(() => {
