@@ -17,10 +17,10 @@ export function rankDogs(userVec, dogs, alpha = 0.6) {
   if (!Array.isArray(dogs) || dogs.length === 0) return [];
 
   return dogs
-    .map((dog) => {
+    .map((dog, index) => {
       const dogVec = Array.isArray(dog?.vec) ? dog.vec : [];
 
-      // vec가 없거나 길이가 다르면 계산이 의미 없으니 0점 처리(또는 필터링해도 됨)
+      // vec가 없거나 길이가 다르면 계산이 의미 없으니 0점 처리
       if (dogVec.length !== userVec.length) {
         return {
           ...dog,
@@ -32,7 +32,7 @@ export function rankDogs(userVec, dogs, alpha = 0.6) {
         };
       }
 
-      const s = scoreVectors(userVec, dogVec, alpha, dog.id);
+      const s = scoreVectors(userVec, dogVec, alpha, dog.id, index);
 
       return {
         ...dog,
@@ -40,7 +40,6 @@ export function rankDogs(userVec, dogs, alpha = 0.6) {
         _dice: s.dice,
         _overlap: s.overlap,
         _inter: s.inter,
-        // 벡터 방식에서는 태그명이 없어서 matchedTags를 만들 수 없음(원하면 ORDER로 인덱스→키 매핑해서 만들 수 있음)
         _matchedTags: [],
       };
     })

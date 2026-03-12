@@ -31,7 +31,7 @@ const CALIBRATION = {
 };
 
 
-export function scoreVectors(userVec, dogVec, alpha = 0.6, dogId = "") {
+export function scoreVectors(userVec, dogVec, alpha = 0.6, dogId = "", dogIndex = 0) {
   const n = Math.min(userVec.length, dogVec.length);
   let earnedScore = 0;
 
@@ -39,19 +39,21 @@ export function scoreVectors(userVec, dogVec, alpha = 0.6, dogId = "") {
     const userWeight = userVec[i];
     const d = dogVec[i] === 1 ? 1 : 0;
     if (userWeight > 0 && d === 1) {
+      // [연속 가중치] 상위 성향뿐 아니라 13가지 성향의 실제 점수를 위치별로 합산
       earnedScore += userWeight;
     }
   }
 
   let finalScore = earnedScore;
 
-  // 견종별 미세 보정 적용
+  // 견종별 보정치 적용 (대중성/희귀도 등 고려)
   if (dogId && CALIBRATION[dogId]) {
     finalScore += CALIBRATION[dogId];
   }
 
-  // Tie-breaker: 35% 수준의 노이즈로 350~1200회 안착 보장
-  finalScore += Math.random() * 0.35;
+  // [결정론적 타이브레이커] 소수점 4~5째 자리에서 순위를 갈라주어 
+  // 똑같은 답변을 했을 때 항상 동일한 순위가 나오도록 보장합니다.
+  finalScore += (dogIndex * 0.00001);
 
   return {
     score: Math.max(0, finalScore),

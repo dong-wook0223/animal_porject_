@@ -14,7 +14,7 @@ export default function Quiz() {
     const progress = ((currentStepIndex + 1) / totalSteps) * 100;
 
     const handleAnswer = (answerScores) => {
-        addScore(answerScores);
+        addScore(currentStepIndex, answerScores);
         if (currentStepIndex < totalSteps - 1) {
             setCurrentStepIndex((prev) => prev + 1);
         } else {

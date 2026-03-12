@@ -66,6 +66,12 @@ export default function Result() {
   const [activeId, setActiveId] = useState(null);
   const cardRefs = useRef({});
   const { scores, resetScores } = useQuiz();
+  const isResetting = useRef(false);
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Scroll into view when activeId changes
   useEffect(() => {
@@ -86,11 +92,13 @@ export default function Result() {
       if (b[1] !== a[1]) return b[1] - a[1];
       return a[0].localeCompare(b[0]);
     });
-    const traits = sortedEntries.slice(0, 5).map((e) => e[0]);
+    // 사용자의 상위 6개 성향만 추출 (동물들의 성향 개수와 맞춤)
+    const traits = sortedEntries.slice(0, 6).map((e) => e[0]);
     const topSet = new Set(traits);
-    // [핵심 세분화] 단순 0,1 배치가 아니라, 실제 퀴즈에서 얻은 점수(가중치)를 그대로 벡터에 담아 보냅니다.
+    
     return {
-      userVec: ORDER.map((key) => (topSet.has(key) ? scores[key] : 0)),
+      // 상위 6개에 포함된 성향만 점수를 유지하고 나머지는 0으로 처리 (위치 기반 매칭)
+      userVec: ORDER.map((key) => (topSet.has(key) ? (scores[key] || 0) : 0)),
       topTraits: traits
     };
   }, [scores]);
@@ -193,7 +201,6 @@ export default function Result() {
     ];
   }, [scores, isEmpty]);
 
-  const isResetting = useRef(false);
 
   const handleHome = () => {
     isResetting.current = true;
@@ -327,7 +334,7 @@ export default function Result() {
                           className="text-[10px] font-bold"
                           style={{ color: "var(--color-accent)" }}
                         >
-                          닮음 지수 {Math.min(100, Math.sqrt(Math.max(0, dog._score ?? 0) / 14.5) * 100).toFixed(2)}점
+                          닮음 지수 {Math.min(100, Math.sqrt(Math.max(0, dog._score ?? 0) / 22.85) * 100).toFixed(2)}점
                         </span>
                       </div>
 
@@ -481,7 +488,7 @@ export default function Result() {
                     className="text-xs font-bold mt-1 inline-block"
                     style={{ color: "var(--color-accent)" }}
                   >
-                    닮음 지수 {Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 14.5) * 100).toFixed(2)}점
+                    닮음 지수 {Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(2)}점
                   </span>
                 </div>
               </div>

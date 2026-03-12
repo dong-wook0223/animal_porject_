@@ -3,23 +3,30 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 const QuizContext = createContext(null);
 
 export function QuizProvider({ children }) {
-  // scores: { [traitName]: number }
-  // 예: { outgoing: 5, playful: 2, ... }
-  const [scores, setScores] = useState({});
+  // scoresMap: { [questionIndex]: { [traitName]: number } }
+  // 예: { 0: { outgoing: 2 }, 1: { friendly: 1 } }
+  const [scoresMap, setScoresMap] = useState({});
 
-  // 답변 선택 시 점수 누적
-  // answerScores 예: { outgoing: 2, activitylevel: 2 }
-  const addScore = (answerScores) => {
-    setScores((prev) => {
-      const next = { ...prev };
-      Object.entries(answerScores).forEach(([trait, value]) => {
-        next[trait] = (next[trait] || 0) + value;
-      });
-      return next;
-    });
+  // 특정 문항의 점수를 저장 (기존 해당 문항 점수는 덮어씀)
+  const addScore = (index, answerScores) => {
+    setScoresMap((prev) => ({
+      ...prev,
+      [index]: answerScores,
+    }));
   };
 
-  const resetScores = () => setScores({});
+  const resetScores = () => setScoresMap({});
+
+  // 모든 문항의 점수를 합산하여 최종 scores 객체 생성
+  const scores = useMemo(() => {
+    const total = {};
+    Object.values(scoresMap).forEach((answerScores) => {
+      Object.entries(answerScores).forEach(([trait, value]) => {
+        total[trait] = (total[trait] || 0) + value;
+      });
+    });
+    return total;
+  }, [scoresMap]);
 
   const value = useMemo(
     () => ({ scores, addScore, resetScores }),

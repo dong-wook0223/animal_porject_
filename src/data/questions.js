@@ -6,8 +6,8 @@ export const QUESTIONS = [
         imagePrompt: "asking puppy",
         emoji: "🐶",
         answers: [
-            { text: "아, 넵 근데 강아지마다 달라서 글쎄요.. ", scores: { independent: 1 } },
-            { text: "정말요? 저희 애가 좀 귀엽긴 하죠! 궁금한 거 다 물어보세요!", scores: { friendly: 1 } },
+            { text: "아, 넵 근데 강아지마다 달라서 글쎄요.. ", scores: { independent: 1.32 } },
+            { text: "정말요? 저희 애가 좀 귀엽긴 하죠! 궁금한 거 다 물어보세요!", scores: { friendly: 1.68 } },
         ],
     },
     {
@@ -17,8 +17,8 @@ export const QUESTIONS = [
         imagePrompt: "late night message waiting, nervous facial expression",
         emoji: "💌",
         answers: [
-            { text: "설마 나 차단했나? (오만가지 생각 중)", scores: { jealous: 1 } },
-            { text: "자나 보네 뭐. 꿀잠 자라 ", scores: { fearless: 1 } },
+            { text: "설마 나 차단했나? (오만가지 생각 중)", scores: { jealous: 1.47 } },
+            { text: "자나 보네 뭐. 꿀잠 자라 ", scores: { fearless: 1.13 } },
         ],
     },
     {
@@ -28,8 +28,8 @@ export const QUESTIONS = [
         imagePrompt: "crowded party atmosphere, high energy",
         emoji: "🥳",
         answers: [
-            { text: "워후! 여기가 오늘 내가 누울 자리인가?", scores: { outgoing: 1 } },
-            { text: "가장 말 많은 사람 옆에 붙어서 리액션만 해주고 정보만 얻는다.", scores: { quickWitted: 1 } },
+            { text: "워후! 여기가 오늘 내가 누울 자리인가?", scores: { outgoing: 2.15 } },
+            { text: "가장 말 많은 사람 옆에 붙어서 리액션만 해주고 정보만 얻는다.", scores: { quickWitted: 1.85 } },
         ],
     },
     {
@@ -39,8 +39,8 @@ export const QUESTIONS = [
         imagePrompt: "mystery menu on a restaurant menu board",
         emoji: "❓",
         answers: [
-            { text: "인생은 모험! 미스터리 메뉴 고! ", scores: { playful: 1 } },
-            { text: "괜히 망치지 말고 검증된 거 먹자", scores: { gentle: 1 } },
+            { text: "인생은 모험! 미스터리 메뉴 고! ", scores: { playful: 1.29 } },
+            { text: "괜히 망치지 말고 검증된 거 먹자", scores: { gentle: 1.71 } },
         ],
     },
     {
@@ -50,8 +50,8 @@ export const QUESTIONS = [
         imagePrompt: "survival situation in an abandoned grocery store, reaching high",
         emoji: "🧟",
         answers: [
-            { text: "위험해도 무조건 올라가서 쟁취한다 ", scores: { size: 1 } },
-            { text: "일단 주변 지형지물 이용해 안전하게 ", scores: { activitylevel: 1 } },
+            { text: "위험해도 무조건 올라가서 쟁취한다 ", scores: { size: 2.42 } },
+            { text: "일단 주변 지형지물 이용해 안전하게 ", scores: { activitylevel: 1.58 } },
         ],
     },
     {
@@ -61,8 +61,8 @@ export const QUESTIONS = [
         imagePrompt: "winning a lottery ticket, big smile",
         emoji: "💰",
         answers: [
-            { text: "동네방네 자랑하고 성대한 파티각! ", scores: { cheerful: 1 } },
-            { text: "평생을 약속한 딱 한 명에게만", scores: { lifelongFriend: 1 } },
+            { text: "동네방네 자랑하고 성대한 파티각! ", scores: { cheerful: 1.63 } },
+            { text: "평생을 약속한 딱 한 명에게만", scores: { lifelongFriend: 2.37 } },
         ],
     },
     {
@@ -72,8 +72,8 @@ export const QUESTIONS = [
         imagePrompt: "karaoke room, first song decision, friends staring",
         emoji: "🎤",
         answers: [
-            { text: "분위기 살리려고 내가 먼저 노래를 시작한다.", scores: { confident: 1 } },
-            { text: "분위기 보고 딱 맞는 노래를 고른다.", scores: { quickWitted: 1 } },
+            { text: "분위기 살리려고 내가 먼저 노래를 시작한다.", scores: { confident: 1.94 } },
+            { text: "분위기 보고 딱 맞는 노래를 고른다.", scores: { quickWitted: 2.15 } },
         ],
     },
     {
@@ -83,8 +83,8 @@ export const QUESTIONS = [
         imagePrompt: "stranded on a desert island, exploring",
         emoji: "🏝️",
         answers: [
-            { text: "구조고 뭐고 일단 섬부터 탐험해 본다 ", scores: { fearless: 1 } },
-            { text: "SOS 신호 보내고 사람부터 찾는다 ", scores: { outgoing: 1 } },
+            { text: "구조고 뭐고 일단 섬부터 탐험해 본다 ", scores: { fearless: 2.87 } },
+            { text: "SOS 신호 보내고 사람부터 찾는다 ", scores: { outgoing: 1.85 } },
         ],
     },
     {
@@ -94,8 +94,8 @@ export const QUESTIONS = [
         imagePrompt: "waking up early for exercise, dark room",
         emoji: "🌅",
         answers: [
-            { text: "일단 뛰쳐나가서 공원 10바퀴 런닝", scores: { activitylevel: 1 } },
-            { text: "따뜻한 차 마시며 명상과 일기 쓰기", scores: { gentle: 1 } },
+            { text: "일단 뛰쳐나가서 공원 10바퀴 런닝", scores: { activitylevel: 2.42 } },
+            { text: "따뜻한 차 마시며 명상과 일기 쓰기", scores: { gentle: 2.29 } },
         ],
     },
     {
@@ -105,8 +105,8 @@ export const QUESTIONS = [
         imagePrompt: "crowded lively cafe vs quiet cozy cafe",
         emoji: "☕",
         answers: [
-            { text: "사람 구경하며 떠들썩한 힙한 카페 ", scores: { friendly: 1 } },
-            { text: "숨겨진 뒷골목 나만 아는 아지트 ", scores: { independent: 1 } },
+            { text: "사람 구경하며 떠들썩한 힙한 카페 ", scores: { friendly: 2.32 } },
+            { text: "숨겨진 뒷골목 나만 아는 아지트 ", scores: { independent: 2.68 } },
         ],
     },
     {
@@ -116,8 +116,8 @@ export const QUESTIONS = [
         imagePrompt: "looking at a smartphone looking jealous",
         emoji: "🧐",
         answers: [
-            { text: "장난스럽게 '어? 인기 많네?' 하며 슬쩍 놀린다.", scores: { playful: 1 } },
-            { text: "누군지 은근히 신경 쓰여서 슬쩍 물어본다.", scores: { jealous: 1 } },
+            { text: "장난스럽게 '어? 인기 많네?' 하며 슬쩍 놀린다.", scores: { playful: 2.71 } },
+            { text: "누군지 은근히 신경 쓰여서 슬쩍 물어본다.", scores: { jealous: 2.53 } },
         ],
     },
     {
@@ -127,8 +127,8 @@ export const QUESTIONS = [
         imagePrompt: "friends posing for travel photos, happy group trip, bright and cheerful mood",
         emoji: "📸",
         answers: [
-            { text: "분위기 띄우며 다 같이 웃고 노는 시간을 만든다.", scores: { cheerful: 1 } },
-            { text: "여행 계획을 정리하고 일정을 리드한다.", scores: { confident: 1 } },
+            { text: "분위기 띄우며 다 같이 웃고 노는 시간을 만든다.", scores: { cheerful: 2.37 } },
+            { text: "여행 계획을 정리하고 일정을 리드한다.", scores: { confident: 2.06 } },
         ],
     },
     {
@@ -138,8 +138,8 @@ export const QUESTIONS = [
         imagePrompt: "strong character helping a friend, trust",
         emoji: "🛡️",
         answers: [
-            { text: "버겁더라도 괜찮아, 내가 다 짊어지고 갈게 ", scores: { size: 1 } },
-            { text: "등 뒤는 나한테 맡겨, 난 절대 널 두고 떠나지 않아. ", scores: { lifelongFriend: 1 } },
+            { text: "버겁더라도 괜찮아, 내가 다 짊어지고 갈게 ", scores: { size: 1.58 } },
+            { text: "등 뒤는 나한테 맡겨, 난 절대 널 두고 떠나지 않아. ", scores: { lifelongFriend: 1.63 } },
         ],
     },
 ];
