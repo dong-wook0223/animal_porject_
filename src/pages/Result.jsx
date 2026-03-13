@@ -13,6 +13,8 @@ import { CENTERS } from "../data/centers";
 import { rankDogs, buildExplain } from "../domain";
 import { useQuiz } from "../store/quizStore";
 
+import { saveResults } from "../lib/hooks";
+
 // Fix for default marker icon in Leaflet + Vite
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -65,8 +67,9 @@ export default function Result() {
   const navigate = useNavigate();
   const [activeId, setActiveId] = useState(null);
   const cardRefs = useRef({});
-  const { scores, resetScores } = useQuiz();
+  const { scores, userResponses, resetScores } = useQuiz();
   const isResetting = useRef(false);
+  const isSaved = useRef(false);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -86,6 +89,38 @@ export default function Result() {
       return () => clearTimeout(timer);
     }
   }, [activeId]);
+
+  useEffect(() => {
+    const saveToDatabase = async () => {
+      // 결과가 없거나 이미 저장했다면 중단
+      if (Object.keys(scores).length === 0 || isSaved.current) return;
+
+      const userId = localStorage.getItem('supabase_user_id');
+      if (!userId) return;
+
+      isSaved.current = true; // 저장 시작 시 Flag 세움
+
+      // 가공: DB의 d_1~d_13 컬럼에 맞게 배열 값 매핑
+      // userResponses[0] 이 d_1에 해당함
+      const { error } = await supabase.rpc('save_user_results', {
+        _user_id: userId,
+        _d1: userResponses[0], _d2: userResponses[1], _d3: userResponses[2],
+        _d4: userResponses[3], _d5: userResponses[4], _d6: userResponses[5],
+        _d7: userResponses[6], _d8: userResponses[7], _d9: userResponses[8],
+        _d10: userResponses[9], _d11: userResponses[10], _d12: userResponses[11],
+        _d13: userResponses[12],
+      });
+
+      if (error) {
+        console.error("저장 실패:", error.message);
+        isSaved.current = false;
+      } else {
+        console.log("결과 저장 완료");
+      }
+    };
+
+    saveToDatabase();
+  }, [scores, userResponses, topMatches, otherMatches, worstMatches]); // 데이터가 준비되면 실행
 
   const { userVec, topTraits } = useMemo(() => {
     const sortedEntries = Object.entries(scores).sort((a, b) => {
