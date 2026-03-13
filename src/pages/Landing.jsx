@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UsersCounter } from "../lib/hooks";
+import { UsersCounter, register } from "../lib/hooks";
 
 function Landing() {
+  register()
   const navigate = useNavigate();
 
   const variants = {

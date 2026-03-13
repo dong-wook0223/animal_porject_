@@ -14,3 +14,28 @@ export function UsersCounter() {
 
   return count;
 }
+
+export function register() {
+  useEffect(() => {  
+    const initializeUser = async () => {
+        const existingId = localStorage.getItem('supabase_user_id');
+        if (existingId) {
+          console.log('이미 등록된 사용자:', existingId);
+          return;
+        }
+
+        const { data, error } = await supabase.rpc('register_new_user');
+
+        if (error) {
+          console.error('사용자 등록 실패:', error.message);
+        } else {
+          localStorage.setItem('supabase_user_id', data);
+          console.log('사용자 등록 완료 ID:', data);
+        }
+      };
+
+    initializeUser();
+  }, []);
+
+  return
+}
