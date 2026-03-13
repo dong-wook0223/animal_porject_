@@ -119,30 +119,6 @@ export default function Result() {
   const otherMatches = useMemo(() => ranked.filter(dog => (topScore - (dog._score ?? 0)) >= 0.0001), [ranked, topScore]);
   const worstMatches = useMemo(() => ranked.slice(-2).reverse(), [ranked]);
 
-  // Database 저장 로직
-  useEffect(() => {
-    const performSave = async () => {
-      // 1. 저장 조건 확인 (데이터가 있고, 아직 저장 전일 때)
-      if (userResponses.length >= 13 && !hasSaved.current) {
-        
-        // 2. 전달받은 saveResults 규격에 맞는 analysisData 객체 생성
-        const analysisData = {
-          sim1: topMatches[0]?.name || "None",
-          sim1p: Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100),
-          sim2: otherMatches[0]?.name || "None",
-          sim2p: Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100),
-          dif1: worstMatches[0]?.name || "None",
-          dif2: worstMatches[1]?.name || "None"
-        };
-
-        hasSaved.current = true; // 저장 시도 표시
-        await saveResults(userResponses, analysisData);
-      }
-    };
-
-    performSave();
-  }, [userResponses, topMatches, otherMatches, worstMatches]);
-
   const top1 = topMatches[0];
   const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
 
@@ -196,6 +172,32 @@ export default function Result() {
 
   const radarData = useMemo(() => {
     if (isEmpty) return [];
+
+  // Database 저장 로직
+  useEffect(() => {
+    const performSave = async () => {
+      // 1. 저장 조건 확인 (데이터가 있고, 아직 저장 전일 때)
+      if (userResponses.length >= 13 && !hasSaved.current) {
+        
+        // 2. 전달받은 saveResults 규격에 맞는 analysisData 객체 생성
+        const analysisData = {
+          sim1: topMatches[0]?.name || "None",
+          sim1p: Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100),
+          sim2: otherMatches[0]?.name || "None",
+          sim2p: Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100),
+          dif1: worstMatches[0]?.name || "None",
+          dif2: worstMatches[1]?.name || "None"
+        };
+
+        hasSaved.current = true; // 저장 시도 표시
+        console.log("Saving results to database...", { userResponses, analysisData });
+        await saveResults(userResponses, analysisData);
+      }
+    };
+
+    performSave();
+  }, [userResponses, topMatches, otherMatches, worstMatches]);
+
 
     // [리뉴얼] 13개 성향을 새로운 5개의 감성 카테고리로 재그룹화 (평균점수를 4배수로 스케일링하여 시각적 공정성 확보)
     return [
