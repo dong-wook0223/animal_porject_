@@ -119,9 +119,6 @@ export default function Result() {
   const otherMatches = useMemo(() => ranked.filter(dog => (topScore - (dog._score ?? 0)) >= 0.0001), [ranked, topScore]);
   const worstMatches = useMemo(() => ranked.slice(-2).reverse(), [ranked]);
 
-  const top1 = topMatches[0];
-  const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
-
   // Database 저장 로직
   useEffect(() => {
     const performSave = async () => {
@@ -145,6 +142,9 @@ export default function Result() {
 
     performSave();
   }, [userResponses, topMatches, otherMatches, worstMatches]);
+
+  const top1 = topMatches[0];
+  const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
 
   const getNickname = () => {
     // [리뉴얼] 5대 카테고리 점수 합산 로직 (평균치 사용)
