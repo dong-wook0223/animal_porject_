@@ -69,7 +69,7 @@ export default function Result() {
   const cardRefs = useRef({});
   const { scores, userResponses, resetScores } = useQuiz();
   const isResetting = useRef(false);
-  const isSaved = useRef(false);
+  const hasSaved = useRef(false);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -89,38 +89,6 @@ export default function Result() {
       return () => clearTimeout(timer);
     }
   }, [activeId]);
-
-  useEffect(() => {
-    const saveToDatabase = async () => {
-      // 결과가 없거나 이미 저장했다면 중단
-      if (Object.keys(scores).length === 0 || isSaved.current) return;
-
-      const userId = localStorage.getItem('supabase_user_id');
-      if (!userId) return;
-
-      isSaved.current = true; // 저장 시작 시 Flag 세움
-
-      // 가공: DB의 d_1~d_13 컬럼에 맞게 배열 값 매핑
-      // userResponses[0] 이 d_1에 해당함
-      const { error } = await supabase.rpc('save_user_results', {
-        _user_id: userId,
-        _d1: userResponses[0], _d2: userResponses[1], _d3: userResponses[2],
-        _d4: userResponses[3], _d5: userResponses[4], _d6: userResponses[5],
-        _d7: userResponses[6], _d8: userResponses[7], _d9: userResponses[8],
-        _d10: userResponses[9], _d11: userResponses[10], _d12: userResponses[11],
-        _d13: userResponses[12],
-      });
-
-      if (error) {
-        console.error("저장 실패:", error.message);
-        isSaved.current = false;
-      } else {
-        console.log("결과 저장 완료");
-      }
-    };
-
-    saveToDatabase();
-  }, [scores, userResponses, topMatches, otherMatches, worstMatches]); // 데이터가 준비되면 실행
 
   const { userVec, topTraits } = useMemo(() => {
     const sortedEntries = Object.entries(scores).sort((a, b) => {
@@ -154,6 +122,29 @@ export default function Result() {
   const top1 = topMatches[0];
   const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
 
+  // Database 저장 로직
+  useEffect(() => {
+    const performSave = async () => {
+      // 1. 저장 조건 확인 (데이터가 있고, 아직 저장 전일 때)
+      if (userResponses.length >= 13 && !hasSaved.current) {
+        
+        // 2. 전달받은 saveResults 규격에 맞는 analysisData 객체 생성
+        const analysisData = {
+          sim1: topMatches[0]?.name || "None",
+          sim1p: Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100),
+          sim2: otherMatches[0]?.name || "None",
+          sim2p: Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100),
+          dif1: worstMatches[0]?.name || "None",
+          dif2: worstMatches[1]?.name || "None"
+        };
+
+        hasSaved.current = true; // 저장 시도 표시
+        await saveResults(userResponses, analysisData);
+      }
+    };
+
+    performSave();
+  }, [userResponses, topMatches, otherMatches, worstMatches]);
 
   const getNickname = () => {
     // [리뉴얼] 5대 카테고리 점수 합산 로직 (평균치 사용)
