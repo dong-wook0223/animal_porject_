@@ -13,8 +13,8 @@ export default function Quiz() {
     const totalSteps = QUESTIONS.length;
     const progress = ((currentStepIndex + 1) / totalSteps) * 100;
 
-    const handleAnswer = (answerScores) => {
-        addScore(currentStepIndex, answerScores);
+    const handleAnswer = (answerScores, choice) => {
+        addScore(currentStepIndex, answerScores, choice);
         if (currentStepIndex < totalSteps - 1) {
             setCurrentStepIndex((prev) => prev + 1);
         } else {
@@ -191,7 +191,7 @@ export default function Quiz() {
                             <motion.button
                                 key={idx}
                                 whileTap={{ scale: 0.98 }}
-                                onClick={() => handleAnswer(ans.scores)}
+                                onClick={() => handleAnswer(ans.scores, idx)}
                                 className="answer-btn"
                                 style={{ padding: "0.8rem 1rem", fontSize: "0.875rem" }}
                             >
