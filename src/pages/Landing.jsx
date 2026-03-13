@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { UsersCounter, register } from "../lib/hooks";
 
 function Landing() {
-  register()
+  register() /*supabase 사용자 등록 함수*/
   const navigate = useNavigate();
 
   const variants = {
@@ -88,7 +88,7 @@ function Landing() {
             className="text-[10px] leading-relaxed text-center"
             style={{ color: "var(--color-text-muted)", fontSize: "0.75rem" }}
           >
-            본 프로젝트는 국립축산과학원의 '국내 친숙 반려견' 24종과 한국애견연맹의 품종 정보를 바탕으로 제작되었습니다. 각각의 강이지의 성격은 환경과 개체에 따라 차이가 있을 수 있으니, 본 결과는 가벼운 마음으로 재미있게 즐겨주세요.
+            본 프로젝트는 국립축산과학원의 '국내 친숙 반려견' 24종과 한국애견협회의 품종 정보를 바탕으로 제작되었습니다. 각각의 강이지의 성격은 환경과 개체에 따라 차이가 있을 수 있으니, 본 결과는 가벼운 마음으로 재미있게 즐겨주세요.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ function Landing() {
           >
             현재 총{" "}
             <span style={{ color: "var(--color-accent)", fontWeight: 700 }}>
-              {UsersCounter()}
+              {UsersCounter() /*supabase 사용자 수 호출 함수*/}
             </span>{" "}
             명이 참여했습니다
           </div>
