@@ -13,7 +13,7 @@ import { CENTERS } from "../data/centers";
 import { rankDogs, buildExplain } from "../domain";
 import { useQuiz } from "../store/quizStore";
 
-import { saveResults } from "../lib/hooks";
+import { saveResults, useStatsData } from "../lib/hooks";
 
 // Fix for default marker icon in Leaflet + Vite
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -41,12 +41,6 @@ const tapMotion = {
   style: { WebkitTapHighlightColor: "transparent" },
 };
 
-// Mock Stats Data - sage green palette
-const STATS_DATA = [
-  { name: "나와 같은 결과", value: 35, color: "#6B8F71" },
-  { name: "다른 강아지들", value: 65, color: "#E8E6E1" },
-];
-
 const TAG_TRANSLATIONS = {
   "playful": "장난꾸러기",
   "confident": "자신감 뿜뿜",
@@ -67,10 +61,12 @@ export default function Result() {
   const navigate = useNavigate();
   const [activeId, setActiveId] = useState(null);
   const cardRefs = useRef({});
-  const { scores, userResponses, resetScores } = useQuiz();
+  const { scores, resetScores, userResponses } = useQuiz();
   const isResetting = useRef(false);
-  const hasSaved = useRef(false);
 
+  const hasSaved = useRef(false);
+  
+  
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -122,6 +118,23 @@ export default function Result() {
   const top1 = topMatches[0];
   const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
 
+  const statsData = useStatsData(topMatches[0]?.name || "None");
+
+  /* database 저장용 */
+  if(!hasSaved.current){
+    hasSaved.current = true;
+    const analysisData = {
+      sim1: topMatches[0]?.name || "None",
+      sim1p: parseFloat(Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(4)),
+      sim2: otherMatches[0]?.name || "None",
+      sim2p: parseFloat(Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(4)),
+      dif1: worstMatches[0]?.name || "None",
+      dif2: worstMatches[1]?.name || "None"
+    };
+    console.log({ userResponses, analysisData });
+    saveResults(userResponses, analysisData);
+  }
+
   const getNickname = () => {
     // [리뉴얼] 5대 카테고리 점수 합산 로직 (평균치 사용)
     const categoryScores = [
@@ -172,32 +185,6 @@ export default function Result() {
 
   const radarData = useMemo(() => {
     if (isEmpty) return [];
-
-  // Database 저장 로직
-  useEffect(() => {
-    const performSave = async () => {
-      // 1. 저장 조건 확인 (데이터가 있고, 아직 저장 전일 때)
-      if (userResponses.length >= 13 && !hasSaved.current) {
-        
-        // 2. 전달받은 saveResults 규격에 맞는 analysisData 객체 생성
-        const analysisData = {
-          sim1: topMatches[0]?.name || "None",
-          sim1p: Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100),
-          sim2: otherMatches[0]?.name || "None",
-          sim2p: Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100),
-          dif1: worstMatches[0]?.name || "None",
-          dif2: worstMatches[1]?.name || "None"
-        };
-
-        hasSaved.current = true; // 저장 시도 표시
-        console.log("Saving results to database...", { userResponses, analysisData });
-        await saveResults(userResponses, analysisData);
-      }
-    };
-
-    performSave();
-  }, [userResponses, topMatches, otherMatches, worstMatches]);
-
 
     // [리뉴얼] 13개 성향을 새로운 5개의 감성 카테고리로 재그룹화 (평균점수를 4배수로 스케일링하여 시각적 공정성 확보)
     return [
@@ -615,7 +602,7 @@ export default function Result() {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={STATS_DATA}
+                  data={statsData}
                   cx="50%"
                   cy="50%"
                   innerRadius={58}
@@ -625,7 +612,7 @@ export default function Result() {
                   startAngle={90}
                   endAngle={-270}
                 >
-                  {STATS_DATA.map((entry, index) => (
+                  {statsData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={0} />
                   ))}
                 </Pie>
@@ -655,7 +642,7 @@ export default function Result() {
                 className="block text-2xl font-extrabold"
                 style={{ color: "var(--color-accent)" }}
               >
-                35%
+                {statsData[0].value.toFixed(1)+"%"}
               </span>
               <span
                 className="block text-[10px]"

@@ -6,16 +6,25 @@ export function QuizProvider({ children }) {
   // scoresMap: { [questionIndex]: { [traitName]: number } }
   // 예: { 0: { outgoing: 2 }, 1: { friendly: 1 } }
   const [scoresMap, setScoresMap] = useState({});
+  const [userResponses, setUserResponses] = useState([]);
 
   // 특정 문항의 점수를 저장 (기존 해당 문항 점수는 덮어씀)
-  const addScore = (index, answerScores) => {
+  const addScore = (index, answerScores, response) => {
     setScoresMap((prev) => ({
       ...prev,
       [index]: answerScores,
     }));
+    setUserResponses((prev) => {
+      const nextResponses = [...prev];
+      nextResponses[index] = response;
+      return nextResponses;
+    });
   };
 
-  const resetScores = () => setScoresMap({});
+  const resetScores = () => {
+    setScoresMap({});
+    setUserResponses([]);
+  };
 
   // 모든 문항의 점수를 합산하여 최종 scores 객체 생성
   const scores = useMemo(() => {
@@ -29,8 +38,8 @@ export function QuizProvider({ children }) {
   }, [scoresMap]);
 
   const value = useMemo(
-    () => ({ scores, addScore, resetScores }),
-    [scores]
+    () => ({ scores, userResponses, addScore, resetScores }),
+    [scores, userResponses]
   );
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
