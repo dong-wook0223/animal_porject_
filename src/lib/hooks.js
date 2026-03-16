@@ -43,7 +43,7 @@ export function register() {
 }
 
 //UserResults 테이블에 설문 결과 저장하기
-export function saveResults(userResponses, analysisData) { 
+export async function saveResults(userResponses, analysisData) { 
   const userId = localStorage.getItem('supabase_user_id');
   if (!userId) {
     console.error("유저 ID를 찾을 수 없습니다.");
@@ -54,7 +54,7 @@ export function saveResults(userResponses, analysisData) {
     return;
   }
   // RPC 함수 호출 (파라미터 전달)
-  const { error } = supabase.rpc('save_user_results', {
+  const { error } = await supabase.rpc('save_user_results', {
     _id: userId,
     // 선택지
     _d1: userResponses[0], _d2: userResponses[1], _d3: userResponses[2],
