@@ -121,7 +121,7 @@ export default function Result() {
   const topDogName = topMatches[0]?.name || "None";
   const statsData = useStatsData(topDogName);
 
-  console.log({hasSaved});
+  //console.log({hasSaved});
   /* database 저장용 */
   if(!hasSaved.current){
     const analysisData = {
