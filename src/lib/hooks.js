@@ -74,7 +74,7 @@ export function saveResults(userResponses, analysisData) {
   else console.log("모든 데이터가 안전하게 저장되었습니다.");
 };
 
-export function useStatsData(dogName) {
+export function useStatsData(targetName) {
   const [statsData, setStatsData] = useState([
     { name: "나와 같은 결과", value: 35, color: "#6B8F71" },
     { name: "다른 강아지들", value: 65, color: "#E8E6E1" },
@@ -82,9 +82,7 @@ export function useStatsData(dogName) {
 
   useEffect(() => {
     async function fetchData() {
-      const { data, error } = await supabase.rpc('get_sim1_ratio', { 
-        _dog_name: dogName 
-      });
+      const { data, error } = await supabase.rpc('get_sim1_ratio', { _dog_name: targetName });
       console.log("RPC 호출 결과:", { data, error });
       setStatsData([
         { name: "나와 같은 결과", value: data, color: "#6B8F71" },
@@ -92,7 +90,7 @@ export function useStatsData(dogName) {
       ]);
     }
     fetchData();
-  }, [dogName]);
+  }, [targetName]);
 
   return statsData;
 };

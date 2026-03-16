@@ -66,7 +66,6 @@ export default function Result() {
 
   const hasSaved = useRef(false);
   
-  
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,12 +117,12 @@ export default function Result() {
   const top1 = topMatches[0];
   const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
 
-  const statsData = useStatsData(topMatches[0]?.name || "None");
+  const topDogName = topMatches[0]?.name || "None";
+  const statsData = useStatsData(topDogName);
 
   console.log({hasSaved});
   /* database 저장용 */
   if(!hasSaved.current){
-    hasSaved.current = true;
     const analysisData = {
       sim1: topMatches[0]?.name || "None",
       sim1p: parseFloat(Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(4)),
@@ -134,6 +133,7 @@ export default function Result() {
     };
     console.log({ userResponses, analysisData });
     saveResults(userResponses, analysisData);
+    hasSaved.current = true;
   }
 
   const getNickname = () => {
