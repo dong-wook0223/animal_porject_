@@ -67,6 +67,7 @@ export default function Result() {
   const cardRefs = useRef({});
   const { scores, resetScores } = useQuiz();
   const isResetting = useRef(false);
+  const [showToast, setShowToast] = useState(false);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -210,6 +211,43 @@ export default function Result() {
     setTimeout(() => {
       resetScores();
     }, 50);
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+
+  const handleKakaoShare = () => {
+    if (!window.Kakao) return;
+
+    window.Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: `나의 소울펫은 ${top1?.name || '???'}!`,
+        description: '나와 찰떡궁합인 강아지를 찾아보세요! 멍BTI 강아지 성격 테스트',
+        imageUrl: top1?.image ? `${window.location.origin}${top1.image}` : '',
+        link: {
+          mobileWebUrl: window.location.origin,
+          webUrl: window.location.origin,
+        },
+      },
+      buttons: [
+        {
+          title: '나도 테스트 해보기',
+          link: {
+            mobileWebUrl: window.location.origin,
+            webUrl: window.location.origin,
+          },
+        },
+      ],
+      installTalk: true,
+    });
   };
 
   if (isEmpty && !isResetting.current) {
@@ -857,7 +895,6 @@ export default function Result() {
 
         </section>
 
-        {/* ─── Footer Actions ─── */}
         <footer className="space-y-3">
           <motion.button
             {...tapMotion}
@@ -866,17 +903,53 @@ export default function Result() {
           >
             다시 테스트하기
           </motion.button>
-          <button
-            className="w-full py-4 rounded-2xl text-sm font-bold"
-            style={{
-              backgroundColor: "var(--color-surface)",
-              border: "1.5px solid var(--color-border)",
-              color: "var(--color-text-secondary)",
-            }}
-          >
-            친구에게 결과 공유하기
-          </button>
+
+          <div className="space-y-2">
+            <p className="text-[11px] font-bold text-center" style={{ color: "var(--color-text-muted)" }}>
+              친구에게 결과 공유하기
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={handleKakaoShare}
+                className="flex-1 py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2"
+                style={{
+                  backgroundColor: "#FEE500",
+                  color: "#191919",
+                }}
+              >
+                <span>💬</span>
+                카카오톡에 공유하기
+              </button>
+              <button
+                onClick={handleCopyLink}
+                className="flex-1 py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2"
+                style={{
+                  backgroundColor: "var(--color-surface)",
+                  border: "1.5px solid var(--color-border)",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                <span>🔗</span>
+                링크 복사하기
+              </button>
+            </div>
+          </div>
         </footer>
+
+        {/* Toast Notification */}
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[1000] px-6 py-3 rounded-full shadow-lg text-white text-sm font-bold"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.8)", backdropFilter: "blur(4px)" }}
+            >
+              링크가 복사되었습니다.
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </div >
     </motion.main >

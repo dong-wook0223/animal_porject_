@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -33,6 +34,13 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
+  useEffect(() => {
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init(import.meta.env.VITE_KAKAO_JS_KEY || '내_자바스크립트_키');
+      console.log('카카오 SDK 준비 완료:', window.Kakao.isInitialized());
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <QuizProvider>

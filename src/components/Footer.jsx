@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const FooterSection = ({ title, content }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location.pathname]);
 
     return (
         <div className="border-t border-[var(--color-border)] first:border-t-0">
