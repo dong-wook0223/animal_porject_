@@ -62,8 +62,15 @@ Google Analytics 데이터 수집을 차단하고 싶은 경우, Google Analytic
 봉사 및 입양 참여 전 반드시 해당 단체 홈페이지에서 최신 공고를 확인해주세요. 
 본 프로젝트는 해당 단체들과 공식 제휴 관계가 없으며, 관련 활동으로 발생하는 문제에 대해 책임을 지지 않습니다.`;
 
+    const DATA_SOURCE_CONTENT = `본 프로젝트는 국립축산과학원의 '국내 친숙 반려견' 24종과 '한국애견협회-견종표준-견종소개 및 AKC공식표준견'데이터를 활용하여 제작되었습니다. 각각의 강이지의 성격은 환경과 개체에 따라 차이가 있을 수 있으니, 본 결과는 가벼운 마음으로 재미있게 즐겨주세요.`;
+
+
     return (
         <footer className="w-full mt-auto bg-[var(--color-surface)] border-t border-[var(--color-border)]">
+            <FooterSection
+                title="본 프로젝트는 한국애견협회-견종표준-견종소개 및 AKC공식표준견 데이터를 활용하여 제작되었습니다."
+                content={DATA_SOURCE_CONTENT}
+            />
             <FooterSection
                 title="본 서비스는 유기동물 입양 및 봉사문화를 응원하기 위한 비영리 프로젝트입니다."
                 content={NON_PROFIT_CONTENT}

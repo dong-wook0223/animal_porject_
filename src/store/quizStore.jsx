@@ -37,6 +37,11 @@ export function QuizProvider({ children }) {
     return total;
   }, [scoresMap]);
 
+  const resetScores = () => {
+    setScoresMap({});
+    setUserResponses([]);
+  }
+
   const value = useMemo(
     () => ({ scores, userResponses, addScore, resetScores }),
     [scores, userResponses]
