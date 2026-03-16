@@ -5,6 +5,7 @@ import { a } from 'framer-motion/client';
 //Users 테이블에 저장된 유저 수 집계하기
 export function useUsersCounter() {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
     async function loadCount() {
       const { data } = await supabase.rpc('get_users_count');

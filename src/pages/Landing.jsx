@@ -5,6 +5,7 @@ import { useUsersCounter, register } from "../lib/hooks";
 function Landing() {
   register() /*supabase 사용자 등록 함수*/
   const usersCount = useUsersCounter() /*현재 참여자 수 집계 함수*/
+  
   const navigate = useNavigate();
 
   const variants = {

@@ -120,6 +120,7 @@ export default function Result() {
 
   const statsData = useStatsData(topMatches[0]?.name || "None");
 
+  console.log({hasSaved});
   /* database 저장용 */
   if(!hasSaved.current){
     hasSaved.current = true;
