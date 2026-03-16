@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UsersCounter, register } from "../lib/hooks";
+import { useUsersCounter, register } from "../lib/hooks";
 
 function Landing() {
   register() /*supabase 사용자 등록 함수*/
+  const usersCount = useUsersCounter() /*현재 참여자 수 집계 함수*/
+  
   const navigate = useNavigate();
 
   const variants = {
@@ -104,7 +106,7 @@ function Landing() {
           >
             현재 총{" "}
             <span style={{ color: "var(--color-accent)", fontWeight: 700 }}>
-              {UsersCounter() /*supabase 사용자 수 호출 함수*/}
+              {usersCount}
             </span>{" "}
             명이 참여했습니다
           </div>

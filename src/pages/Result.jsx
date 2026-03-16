@@ -13,6 +13,8 @@ import { CENTERS } from "../data/centers";
 import { rankDogs, buildExplain } from "../domain";
 import { useQuiz } from "../store/quizStore";
 
+import { saveResults, useStatsData } from "../lib/hooks";
+
 // Fix for default marker icon in Leaflet + Vite
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -39,12 +41,6 @@ const tapMotion = {
   style: { WebkitTapHighlightColor: "transparent" },
 };
 
-// Mock Stats Data - sage green palette
-const STATS_DATA = [
-  { name: "나와 같은 결과", value: 35, color: "#6B8F71" },
-  { name: "다른 강아지들", value: 65, color: "#E8E6E1" },
-];
-
 const TAG_TRANSLATIONS = {
   "playful": "장난꾸러기",
   "confident": "자신감 뿜뿜",
@@ -65,10 +61,12 @@ export default function Result() {
   const navigate = useNavigate();
   const [activeId, setActiveId] = useState(null);
   const cardRefs = useRef({});
-  const { scores, resetScores } = useQuiz();
+  const { scores, resetScores, userResponses } = useQuiz();
   const isResetting = useRef(false);
   const [showToast, setShowToast] = useState(false);
 
+  const hasSaved = useRef(false);
+  
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -120,6 +118,24 @@ export default function Result() {
   const top1 = topMatches[0];
   const explain = useMemo(() => (top1 ? buildExplain(userVec, top1) : null), [userVec, top1]);
 
+  const topDogName = topMatches[0]?.name || "None";
+  const statsData = useStatsData(topDogName);
+
+  console.log({hasSaved});
+  /* database 저장용 */
+  if(!hasSaved.current){
+    const analysisData = {
+      sim1: topMatches[0]?.name || "None",
+      sim1p: parseFloat(Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(4)),
+      sim2: otherMatches[0]?.name || "None",
+      sim2p: parseFloat(Math.min(100, Math.sqrt(Math.max(0, otherMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(4)),
+      dif1: worstMatches[0]?.name || "None",
+      dif2: worstMatches[1]?.name || "None"
+    };
+    //console.log({ userResponses, analysisData });
+    saveResults(userResponses, analysisData);
+    hasSaved.current = true;
+  }
 
   const getNickname = () => {
     // [리뉴얼] 5대 카테고리 점수 합산 로직 (평균치 사용)
@@ -625,7 +641,7 @@ export default function Result() {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={STATS_DATA}
+                  data={statsData}
                   cx="50%"
                   cy="50%"
                   innerRadius={58}
@@ -635,7 +651,7 @@ export default function Result() {
                   startAngle={90}
                   endAngle={-270}
                 >
-                  {STATS_DATA.map((entry, index) => (
+                  {statsData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={0} />
                   ))}
                 </Pie>
@@ -665,7 +681,7 @@ export default function Result() {
                 className="block text-2xl font-extrabold"
                 style={{ color: "var(--color-accent)" }}
               >
-                35%
+                {statsData[0].value.toFixed(1)+"%"}
               </span>
               <span
                 className="block text-[10px]"
