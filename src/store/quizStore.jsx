@@ -21,11 +21,6 @@ export function QuizProvider({ children }) {
     });
   };
 
-  const resetScores = () => {
-    setScoresMap({});
-    setUserResponses([]);
-  };
-
   // 모든 문항의 점수를 합산하여 최종 scores 객체 생성
   const scores = useMemo(() => {
     const total = {};
