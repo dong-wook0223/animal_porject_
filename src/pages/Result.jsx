@@ -131,7 +131,7 @@ export default function Result() {
       dif1: worstMatches[0]?.name || "None",
       dif2: worstMatches[1]?.name || "None"
     };
-    console.log({ userResponses, analysisData });
+    //console.log({ userResponses, analysisData });
     saveResults(userResponses, analysisData);
     hasSaved.current = true;
   }

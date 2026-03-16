@@ -23,7 +23,7 @@ export function register() {
     async function initializeUser() {
         const existingId = localStorage.getItem('supabase_user_id');
         if (existingId) {
-          console.log('이미 등록된 사용자:', existingId);
+          //console.log('이미 등록된 사용자:', existingId);
           return;
         }
 
@@ -46,11 +46,11 @@ export function register() {
 export async function saveResults(userResponses, analysisData) { 
   const userId = localStorage.getItem('supabase_user_id');
   if (!userId) {
-    console.error("유저 ID를 찾을 수 없습니다.");
+    //console.error("유저 ID를 찾을 수 없습니다.");
     return;
   }
   if(userResponses.length < 13) { 
-    console.error("사용자 응답이 완전하지 않습니다.");
+    //console.error("사용자 응답이 완전하지 않습니다.");
     return;
   }
   // RPC 함수 호출 (파라미터 전달)
@@ -70,8 +70,8 @@ export async function saveResults(userResponses, analysisData) {
     _dif1: analysisData.dif1,
     _dif2: analysisData.dif2
   });
-  if (error) console.error("결과 저장 실패:", error.message);
-  else console.log("모든 데이터가 안전하게 저장되었습니다.");
+  /*if (error) console.error("결과 저장 실패:", error.message);
+  else console.log("모든 데이터가 안전하게 저장되었습니다.");*/
 };
 
 export function useStatsData(targetName) {
@@ -83,7 +83,7 @@ export function useStatsData(targetName) {
   useEffect(() => {
     async function fetchData() {
       const { data, error } = await supabase.rpc('get_sim1_ratio', { _dog_name: targetName });
-      console.log("RPC 호출 결과:", { data, error });
+      //console.log("RPC 호출 결과:", { data, error });
       setStatsData([
         { name: "나와 같은 결과", value: data, color: "#6B8F71" },
         { name: "다른 강아지들", value: 100 - data, color: "#E8E6E1" },
