@@ -121,11 +121,9 @@ export default function Result() {
   const topDogName = topMatches[0]?.name || "None";
   const statsData = useStatsData(topDogName);
 
-<<<<<<< HEAD
-  console.log({ hasSaved });
-=======
+
   //console.log({hasSaved});
->>>>>>> 24c0c5ed2e4d190d56cdcb02df9406b53679597d
+  
   /* database 저장용 */
   if (!hasSaved.current) {
     const analysisData = {
