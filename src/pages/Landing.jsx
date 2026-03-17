@@ -5,7 +5,7 @@ import { useUsersCounter, register } from "../lib/hooks";
 function Landing() {
   register() /*supabase 사용자 등록 함수*/
   const usersCount = useUsersCounter() /*현재 참여자 수 집계 함수*/
-  
+
   const navigate = useNavigate();
 
   const variants = {
@@ -124,22 +124,7 @@ function Landing() {
           테스트 시작하기 →
         </motion.button>
 
-        {/* ─── Share Buttons ─── */}
-        <div className="flex justify-center gap-3">
-          {["카", "링", "트", "인"].map((label, i) => (
-            <button
-              key={i}
-              className="w-9 h-9 rounded-full text-xs flex items-center justify-center"
-              style={{
-                backgroundColor: "var(--color-surface)",
-                border: "1.5px solid var(--color-border)",
-                color: "var(--color-text-muted)",
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+
       </div>
     </motion.main>
   );

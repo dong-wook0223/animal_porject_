@@ -87,7 +87,7 @@ Google Analytics 데이터 수집을 차단하고 싶은 경우, Google Analytic
             />
             <div className="py-4 px-4 text-center">
                 <p className="text-[9px] text-[var(--color-text-muted)] uppercase tracking-widest">
-                    © 2026 Animal Personality Test Project_
+                    © 2026 Animal Personality Test Project_DwBy
                 </p>
             </div>
         </footer>

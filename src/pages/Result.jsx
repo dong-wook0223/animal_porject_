@@ -66,7 +66,7 @@ export default function Result() {
   const [showToast, setShowToast] = useState(false);
 
   const hasSaved = useRef(false);
-  
+
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -94,7 +94,7 @@ export default function Result() {
     // 사용자의 상위 6개 성향만 추출 (동물들의 성향 개수와 맞춤)
     const traits = sortedEntries.slice(0, 6).map((e) => e[0]);
     const topSet = new Set(traits);
-    
+
     return {
       // 상위 6개에 포함된 성향만 점수를 유지하고 나머지는 0으로 처리 (위치 기반 매칭)
       userVec: ORDER.map((key) => (topSet.has(key) ? (scores[key] || 0) : 0)),
@@ -121,9 +121,9 @@ export default function Result() {
   const topDogName = topMatches[0]?.name || "None";
   const statsData = useStatsData(topDogName);
 
-  console.log({hasSaved});
+  console.log({ hasSaved });
   /* database 저장용 */
-  if(!hasSaved.current){
+  if (!hasSaved.current) {
     const analysisData = {
       sim1: topMatches[0]?.name || "None",
       sim1p: parseFloat(Math.min(100, Math.sqrt(Math.max(0, topMatches[0]?._score ?? 0) / 22.85) * 100).toFixed(4)),
@@ -246,7 +246,7 @@ export default function Result() {
       objectType: 'feed',
       content: {
         title: `나의 소울펫은 ${top1?.name || '???'}!`,
-        description: '나와 찰떡궁합인 강아지를 찾아보세요! 멍BTI 강아지 성격 테스트',
+        description: '나와 찰떡궁합인 강아지를 찾아보세요! 너의 강아지는?',
         imageUrl: top1?.image ? `${window.location.origin}${top1.image}` : '',
         link: {
           mobileWebUrl: window.location.origin,
@@ -681,7 +681,7 @@ export default function Result() {
                 className="block text-2xl font-extrabold"
                 style={{ color: "var(--color-accent)" }}
               >
-                {statsData[0].value.toFixed(1)+"%"}
+                {statsData[0].value.toFixed(1) + "%"}
               </span>
               <span
                 className="block text-[10px]"

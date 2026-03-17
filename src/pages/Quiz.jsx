@@ -14,6 +14,15 @@ export default function Quiz() {
     const progress = ((currentStepIndex + 1) / totalSteps) * 100;
 
     const handleAnswer = (answerScores, answerIndex) => {
+        // GTM DataLayer push
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "quiz_answer",
+            question_index: currentStepIndex + 1,
+            question_title: currentQuestion.title,
+            answer_index: answerIndex,
+        });
+
         addScore(currentStepIndex, answerScores, answerIndex);
         if (currentStepIndex < totalSteps - 1) {
             setCurrentStepIndex((prev) => prev + 1);
@@ -23,6 +32,14 @@ export default function Quiz() {
     };
 
     const handleBack = () => {
+        // GTM DataLayer push
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: "quiz_back",
+            question_index: currentStepIndex + 1,
+            question_title: currentQuestion.title,
+        });
+
         if (currentStepIndex > 0) {
             setCurrentStepIndex((prev) => prev - 1);
         } else {
