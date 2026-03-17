@@ -3,7 +3,6 @@ export const QUESTIONS = [
         id: 1,
         title: "사회생활",
         question: "옆 부서 사람이 내 강아지 사진을 보더니 자기도 키우고 싶다며 이것저것 묻기 시작한다.",
-        imagePrompt: "asking puppy",
         emoji: "🐶",
         answers: [
             { text: "아, 넵 근데 강아지마다 달라서 글쎄요.. ", scores: { independent: 1.32 } },
@@ -14,7 +13,6 @@ export const QUESTIONS = [
         id: 2,
         title: "인간관계",
         question: "짝사랑하던 이성에게 '자니?'라고 보냈는데 1시간째 안 읽음!",
-        imagePrompt: "late night message waiting, nervous facial expression",
         emoji: "💌",
         answers: [
             { text: "설마 나 차단했나? (오만가지 생각 중)", scores: { jealous: 1.47 } },
@@ -25,7 +23,6 @@ export const QUESTIONS = [
         id: 3,
         title: "네트워킹",
         question: "생전 처음 가본 동호회 파티. 입구에서부터 텐션이 폭발한다!",
-        imagePrompt: "crowded party atmosphere, high energy",
         emoji: "🥳",
         answers: [
             { text: "워후! 여기가 오늘 내가 누울 자리인가?", scores: { outgoing: 2.15 } },
@@ -36,7 +33,6 @@ export const QUESTIONS = [
         id: 4,
         title: "데이트",
         question: "애인과 처음 온 맛집. 메뉴판에 '셰프 추천 미스터리 메뉴'가 있다.",
-        imagePrompt: "mystery menu on a restaurant menu board",
         emoji: "❓",
         answers: [
             { text: "인생은 모험! 미스터리 메뉴 고! ", scores: { playful: 1.29 } },
@@ -47,7 +43,6 @@ export const QUESTIONS = [
         id: 5,
         title: "생존력",
         question: "상상도 못한 좀비 아포칼립스! 높은 선반 위 마지막 식량 발견.",
-        imagePrompt: "survival situation in an abandoned grocery store, reaching high",
         emoji: "🧟",
         answers: [
             { text: "위험해도 무조건 올라가서 쟁취한다 ", scores: { size: 2.42 } },
@@ -56,20 +51,18 @@ export const QUESTIONS = [
     },
     {
         id: 6,
-        title: "우정",
-        question: "로또 1등에 당첨됐다! 이 사실을 누구에게 말할까?",
-        imagePrompt: "winning a lottery ticket, big smile",
-        emoji: "💰",
+        title: "공유",
+        question: "정말 가고 싶던 곳에 합격했다! 가장 먼저 이 소식을 전달 받을 사람은?",
+        emoji: "🔗",
         answers: [
-            { text: "동네방네 자랑하고 성대한 파티각! ", scores: { cheerful: 1.63 } },
-            { text: "평생을 약속한 딱 한 명에게만", scores: { lifelongFriend: 2.37 } },
+            { text: "SNS에 바로 업로드! 성대한 파티각 ", scores: { cheerful: 1.63 } },
+            { text: "제일 가까운 친구 몇 명에게만 알려주기", scores: { lifelongFriend: 2.37 } },
         ],
     },
     {
         id: 7,
         title: "노래방",
         question: "노래방에서 첫 곡을 고르는 순간!",
-        imagePrompt: "karaoke room, first song decision, friends staring",
         emoji: "🎤",
         answers: [
             { text: "분위기 살리려고 내가 먼저 노래를 시작한다.", scores: { confident: 1.94 } },
@@ -80,7 +73,6 @@ export const QUESTIONS = [
         id: 8,
         title: "모험",
         question: "지도에도 없는 낯선 무인도에 떨어졌다. 나의 행동은?",
-        imagePrompt: "stranded on a desert island, exploring",
         emoji: "🏝️",
         answers: [
             { text: "구조고 뭐고 일단 섬부터 탐험해 본다 ", scores: { fearless: 2.87 } },
@@ -91,7 +83,6 @@ export const QUESTIONS = [
         id: 9,
         title: "자기계발",
         question: "갓생 살기 도전! 새벽 5시 알람이 울린다면?",
-        imagePrompt: "waking up early for exercise, dark room",
         emoji: "🌅",
         answers: [
             { text: "일단 뛰쳐나가서 공원 10바퀴 런닝", scores: { activitylevel: 2.42 } },
@@ -102,7 +93,6 @@ export const QUESTIONS = [
         id: 10,
         title: "취향",
         question: "당신이 가장 선호하는 카페 분위기는?",
-        imagePrompt: "crowded lively cafe vs quiet cozy cafe",
         emoji: "☕",
         answers: [
             { text: "사람 구경하며 떠들썩한 힙한 카페 ", scores: { friendly: 2.32 } },
@@ -113,7 +103,6 @@ export const QUESTIONS = [
         id: 11,
         title: "연애",
         question: "애인의 SNS에 모르는 사람이 하트를 엄청 눌렀다면?",
-        imagePrompt: "looking at a smartphone looking jealous",
         emoji: "🧐",
         answers: [
             { text: "장난스럽게 '어? 인기 많네?' 하며 슬쩍 놀린다.", scores: { playful: 2.71 } },
@@ -124,7 +113,6 @@ export const QUESTIONS = [
         id: 12,
         title: "여행",
         question: "친구들과 여행을 갔을 때 나는?",
-        imagePrompt: "friends posing for travel photos, happy group trip, bright and cheerful mood",
         emoji: "📸",
         answers: [
             { text: "분위기 띄우며 다 같이 웃고 노는 시간을 만든다.", scores: { cheerful: 2.37 } },
@@ -133,13 +121,12 @@ export const QUESTIONS = [
     },
     {
         id: 13,
-        title: "책임",
-        question: "내가 아끼는 사람이 당신에게 자신의 등을 맡긴다면?",
-        imagePrompt: "strong character helping a friend, trust",
-        emoji: "🛡️",
+        title: "도움",
+        question: "높은 선반 위에 있는 무거운 짐을 내려야 하는 난처한 상황이라면?",
+        emoji: "📦",
         answers: [
-            { text: "버겁더라도 괜찮아, 내가 다 짊어지고 갈게 ", scores: { size: 1.58 } },
-            { text: "등 뒤는 나한테 맡겨, 난 절대 널 두고 떠나지 않아. ", scores: { lifelongFriend: 1.63 } },
+            { text: "까치발 들 필요 없어. 내가 팔만 뻗어서 슥- 내려줄게 ", scores: { size: 1.58 } },
+            { text: "조심해! 내가 옆에서 단단히 붙잡아 줄 테니 같이 내려보자. ", scores: { lifelongFriend: 1.63 } },
         ],
     },
 ];

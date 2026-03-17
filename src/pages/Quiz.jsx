@@ -17,7 +17,7 @@ export default function Quiz() {
         // GTM DataLayer push
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            event: "quiz_answer",
+            event: "click_answer_quiz",
             question_index: currentStepIndex + 1,
             question_title: currentQuestion.title,
             answer_index: answerIndex,
@@ -35,7 +35,7 @@ export default function Quiz() {
         // GTM DataLayer push
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            event: "quiz_back",
+            event: "click_back_quiz",
             question_index: currentStepIndex + 1,
             question_title: currentQuestion.title,
         });
