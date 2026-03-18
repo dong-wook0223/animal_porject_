@@ -94,3 +94,7 @@ export function useStatsData(targetName) {
 
   return statsData;
 };
+
+export function saveCritics() {
+  
+}
