@@ -127,7 +127,7 @@ export default function Result() {
 
 
   //console.log({hasSaved});
-  
+
   /* database 저장용 */
   if (!hasSaved.current) {
     const analysisData = {
@@ -255,16 +255,16 @@ export default function Result() {
         description: '나와 찰떡궁합인 강아지를 찾아보세요! 너의 강아지는?',
         imageUrl: top1?.image ? `${window.location.origin}${top1.image}` : '',
         link: {
-          mobileWebUrl: window.location.origin,
-          webUrl: window.location.origin,
+          mobileWebUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
+          webUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
         },
       },
       buttons: [
         {
           title: '나도 테스트 해보기',
           link: {
-            mobileWebUrl: window.location.origin,
-            webUrl: window.location.origin,
+            mobileWebUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
+            webUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
           },
         },
       ],
@@ -274,18 +274,13 @@ export default function Result() {
 
   const handleRatingClick = (idx) => {
     if (isSubmitted) return;
+    setRating(idx + 1);
+  };
 
-    const newRating = idx + 1;
-    setRating(newRating);
-
-    // Clear existing timer if any
-    if (submitTimer) clearTimeout(submitTimer);
-
-    // Set new timer for auto-submission
-    const timer = setTimeout(() => {
+  const handleSubmitRating = () => {
+    if (rating > 0) {
       setIsSubmitted(true);
-    }, 1500);
-    setSubmitTimer(timer);
+    }
   };
 
   if (isEmpty && !isResetting.current) {
@@ -979,12 +974,20 @@ export default function Result() {
           </div>
 
           {/* ────── 별점 평가 섹션 ────── */}
-          <div className="pt-8 pb-4 flex flex-col items-center gap-3">
-            <p className="text-[11px] font-bold" style={{ color: "var(--color-text-muted)" }}>
-              {isSubmitted ? "평가해주셔서 감사합니다!" : "재밌으셨나요? 본 서비스를 평가해주세요"}
-            </p>
+          <div className="pt-10 pb-6 flex flex-col items-center gap-5 bg-[rgba(107,143,113,0.03)] rounded-3xl border border-[rgba(107,143,113,0.1)] mt-4">
+            <div className="text-center space-y-1">
+              <p className="text-xs font-bold" style={{ color: "var(--color-text-primary)" }}>
+                {isSubmitted ? "평가해주셔서 감사합니다!" : "재밌으셨나요? 본 서비스를 평가해주세요"}
+              </p>
+              {!isSubmitted && (
+                <p className="text-[10px]" style={{ color: "var(--color-text-muted)" }}>
+                  원하는 별점을 누르고 버튼 클릭하면 평가할 수 있어요.
+                </p>
+              )}
+            </div>
+
             <div
-              className={`flex gap-3 items-center ${isSubmitted ? 'pointer-events-none' : ''}`}
+              className={`flex gap-4 items-center ${isSubmitted ? 'pointer-events-none' : ''}`}
               onMouseLeave={() => setHoverRating(0)}
             >
               {[...Array(5)].map((_, i) => {
@@ -996,11 +999,11 @@ export default function Result() {
                     whileTap={!isSubmitted ? { scale: 0.9 } : {}}
                     onMouseEnter={() => !isSubmitted && setHoverRating(i + 1)}
                     onClick={() => handleRatingClick(i)}
-                    className="cursor-pointer text-2xl"
+                    className="cursor-pointer text-4xl"
                     style={{
                       color: isActive ? "#FFD700" : "var(--color-border)",
-                      filter: isActive ? "drop-shadow(0 0 2px rgba(255, 215, 0, 0.3))" : "none",
-                      transition: "color 0.2s ease"
+                      filter: isActive ? "drop-shadow(0 0 4px rgba(255, 215, 0, 0.4))" : "none",
+                      transition: "all 0.2s ease"
                     }}
                   >
                     ★
@@ -1008,6 +1011,17 @@ export default function Result() {
                 );
               })}
             </div>
+
+            {!isSubmitted && (
+              <motion.button
+                {...tapMotion}
+                onClick={handleSubmitRating}
+                className={`btn-primary px-10 py-3 text-sm ${rating === 0 ? 'opacity-50 grayscale' : ''}`}
+                disabled={rating === 0}
+              >
+                점수 주기
+              </motion.button>
+            )}
           </div>
         </footer>
 
