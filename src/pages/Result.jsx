@@ -64,6 +64,10 @@ export default function Result() {
   const { scores, resetScores, userResponses } = useQuiz();
   const isResetting = useRef(false);
   const [showToast, setShowToast] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitTimer, setSubmitTimer] = useState(null);
 
   const hasSaved = useRef(false);
 
@@ -233,7 +237,7 @@ export default function Result() {
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(window.location.origin);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
     } catch (err) {
@@ -266,6 +270,22 @@ export default function Result() {
       ],
       installTalk: true,
     });
+  };
+
+  const handleRatingClick = (idx) => {
+    if (isSubmitted) return;
+
+    const newRating = idx + 1;
+    setRating(newRating);
+
+    // Clear existing timer if any
+    if (submitTimer) clearTimeout(submitTimer);
+
+    // Set new timer for auto-submission
+    const timer = setTimeout(() => {
+      setIsSubmitted(true);
+    }, 1500);
+    setSubmitTimer(timer);
   };
 
   if (isEmpty && !isResetting.current) {
@@ -724,13 +744,18 @@ export default function Result() {
             {/* Real Interactive Map (Leaflet) - Minimal Style */}
             <div
               className="w-full h-80 rounded-2xl relative overflow-hidden shadow-inner border"
-              style={{ backgroundColor: "#f8f9fa", borderColor: "var(--color-border)", zIndex: 0 }}
+              style={{
+                backgroundColor: "#f8f9fa",
+                borderColor: "var(--color-border)",
+                zIndex: 0,
+                touchAction: 'none' // Prevent page scroll when touching the map
+              }}
             >
               <MapContainer
                 center={[37.5665, 126.9780]}
                 zoom={10}
                 style={{ width: '100%', height: '100%' }}
-                scrollWheelZoom={true}
+                scrollWheelZoom={false} // Prevent page scroll battles on desktop
                 dragging={true}
                 touchZoom={true}
                 doubleClickZoom={true}
@@ -950,6 +975,38 @@ export default function Result() {
                 <span>🔗</span>
                 링크 복사하기
               </button>
+            </div>
+          </div>
+
+          {/* ────── 별점 평가 섹션 ────── */}
+          <div className="pt-8 pb-4 flex flex-col items-center gap-3">
+            <p className="text-[11px] font-bold" style={{ color: "var(--color-text-muted)" }}>
+              {isSubmitted ? "평가해주셔서 감사합니다!" : "재밌으셨나요? 본 서비스를 평가해주세요"}
+            </p>
+            <div
+              className={`flex gap-3 items-center ${isSubmitted ? 'pointer-events-none' : ''}`}
+              onMouseLeave={() => setHoverRating(0)}
+            >
+              {[...Array(5)].map((_, i) => {
+                const currentDisplayRating = isSubmitted ? rating : (hoverRating || rating || 3);
+                const isActive = i < currentDisplayRating;
+                return (
+                  <motion.span
+                    key={i}
+                    whileTap={!isSubmitted ? { scale: 0.9 } : {}}
+                    onMouseEnter={() => !isSubmitted && setHoverRating(i + 1)}
+                    onClick={() => handleRatingClick(i)}
+                    className="cursor-pointer text-2xl"
+                    style={{
+                      color: isActive ? "#FFD700" : "var(--color-border)",
+                      filter: isActive ? "drop-shadow(0 0 2px rgba(255, 215, 0, 0.3))" : "none",
+                      transition: "color 0.2s ease"
+                    }}
+                  >
+                    ★
+                  </motion.span>
+                );
+              })}
             </div>
           </div>
         </footer>
