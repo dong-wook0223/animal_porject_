@@ -55,7 +55,7 @@ function Landing() {
             className="text-xs font-bold tracking-widest uppercase mb-2"
             style={{ color: "var(--color-text-muted)" }}
           >
-            나와 어울리는 반려견 찾기 TEST
+            나와 어울리는 강아지 찾기 TEST
           </p>
           <h1
             className="font-extrabold leading-tight"
