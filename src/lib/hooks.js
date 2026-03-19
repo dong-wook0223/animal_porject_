@@ -110,7 +110,7 @@ export async function saveCritics(rating) {
   // RPC 함수 호출 (파라미터 전달)
   const { error } = await supabase.rpc('save_user_critic', {
     _id: userId,
-    _grade: rating,
+    _rating: rating,
     _comment: null
   });
   if (error) console.error("평가 저장 실패:", error.message);
