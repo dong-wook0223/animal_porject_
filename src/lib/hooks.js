@@ -108,7 +108,7 @@ export async function saveCritics(rating) {
     return;
   }
   // RPC 함수 호출 (파라미터 전달)
-  const { error } = await supabase.rpc('save_user_results', {
+  const { error } = await supabase.rpc('save_user_critic', {
     _id: userId,
     _grade: rating,
     _comment: null
