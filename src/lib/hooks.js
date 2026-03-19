@@ -100,11 +100,11 @@ export function useStatsData(targetName) {
 export async function saveCritics(rating) {
   const userId = localStorage.getItem('supabase_user_id');
   if (!userId) {
-    console.error("유저 ID를 찾을 수 없습니다.");
+    //console.error("유저 ID를 찾을 수 없습니다.");
     return;
   }
   if(rating == null) { 
-    console.error("사용자 응답이 완전하지 않습니다.");
+    //console.error("사용자 응답이 완전하지 않습니다.");
     return;
   }
   // RPC 함수 호출 (파라미터 전달)
@@ -113,5 +113,5 @@ export async function saveCritics(rating) {
     _rating: rating,
     _comment: null
   });
-  if (error) console.error("평가 저장 실패:", error.message);
+  if (error) //console.error("평가 저장 실패:", error.message);
 }
