@@ -14,6 +14,7 @@ import { rankDogs, buildExplain } from "../domain";
 import { useQuiz } from "../store/quizStore";
 
 import { saveResults, useStatsData } from "../lib/hooks";
+import { saveCritics } from "../lib/analytics";
 
 // Fix for default marker icon in Leaflet + Vite
 import icon from 'leaflet/dist/images/marker-icon.png';
