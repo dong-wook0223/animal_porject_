@@ -90,6 +90,21 @@ export default function Result() {
     }
   }, [activeId]);
 
+  // [NEW] 보호소 랜덤 셔플 및 location_id 부여 (마운트 시 1회)
+  const randomizedCenters = useMemo(() => {
+    const centers = [...CENTERS];
+    // Fisher-Yates shuffle
+    for (let i = centers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [centers[i], centers[j]] = [centers[j], centers[i]];
+    }
+    // 위치 기반 location_id 부여 (보호소 고유 id는 유지됨)
+    return centers.map((center, index) => ({
+      ...center,
+      location_id: index + 1
+    }));
+  }, []);
+
   const { userVec, topTraits } = useMemo(() => {
     const sortedEntries = Object.entries(scores).sort((a, b) => {
       if (b[1] !== a[1]) return b[1] - a[1];
@@ -235,6 +250,15 @@ export default function Result() {
     }, 50);
   };
 
+  // [GTM] 공통 트래킹 함수
+  const trackEvent = (eventName, params = {}) => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: eventName,
+      ...params
+    });
+  };
+
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.origin);
@@ -248,6 +272,11 @@ export default function Result() {
   const handleKakaoShare = () => {
     if (!window.Kakao) return;
 
+    // [GTM] 카카오톡 공유 이벤트 전송
+    trackEvent('share', {
+      method: '카카오톡',
+      content_type: '테스트 시작 페이지'
+    });
     // 도메인 뒤에 /를 붙여 UTM 파라미터가 정상적으로 인식되게 함
     const shareLink = window.location.origin + "/?utm_source=kakao&utm_medium=social&utm_campaign=share_button";
 
@@ -765,7 +794,7 @@ export default function Result() {
                 />
 
                 {/* HDS Area Shading for all subLocations */}
-                {CENTERS.find(c => c.id === 3)?.subLocations.map((loc, idx) => (
+                {randomizedCenters.find(c => c.id === 3)?.subLocations.map((loc, idx) => (
                   <Circle
                     key={`hds-circle-${idx}`}
                     center={[loc.lat, loc.lng]}
@@ -780,7 +809,7 @@ export default function Result() {
                   />
                 ))}
 
-                {CENTERS.flatMap(org =>
+                {randomizedCenters.flatMap(org =>
                   org.subLocations.map((loc, idx) => (
                     <Marker
                       key={`${org.id}-${idx}`}
@@ -834,8 +863,8 @@ export default function Result() {
             {/* Organization Cards List - Reordered Grid */}
             <div className="grid grid-cols-2 gap-3 items-start relative">
               {(() => {
-                // Reorder centers: active card goes first
-                let displayCenters = [...CENTERS];
+                // Reorder centers: active card goes first (랜덤하게 섞인 randomizedCenters 기반)
+                let displayCenters = [...randomizedCenters];
                 if (activeId) {
                   const activeIndex = displayCenters.findIndex(c => c.id === activeId);
                   if (activeIndex > -1) {
@@ -844,83 +873,99 @@ export default function Result() {
                   }
                 }
 
-                return displayCenters.map((center) => (
-                  <motion.div
-                    key={center.id}
-                    ref={el => cardRefs.current[center.id] = el}
-                    layout
-                    whileHover={{ scale: 1.01 }}
-                    onClick={() => setActiveId(activeId === center.id ? null : center.id)}
-                    className={`rounded-3xl p-5 border transition-all flex flex-col overflow-hidden relative ${activeId === center.id ? 'z-20 shadow-xl' : 'z-10 shadow-sm'}`}
-                    style={{
-                      backgroundColor: "var(--color-surface)",
-                      borderColor: center.id === activeId ? "var(--color-accent)" : "var(--color-border)",
-                      cursor: "pointer",
-                      gridColumn: activeId === center.id ? "span 2" : "span 1"
+    const handleCenterClick = (center) => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'click_enter_homepage',
+        center_name: center.name,
+        id: center.id,
+        location_id: center.location_id
+      });
+    };
+
+    return displayCenters.map((center) => (
+      <motion.div
+        key={center.id}
+        ref={el => cardRefs.current[center.id] = el}
+        layout
+        whileHover={{ scale: 1.01 }}
+        onClick={() => setActiveId(activeId === center.id ? null : center.id)}
+        className={`rounded-3xl p-5 border transition-all flex flex-col overflow-hidden relative ${activeId === center.id ? 'z-20 shadow-xl' : 'z-10 shadow-sm'}`}
+        style={{
+          backgroundColor: "var(--color-surface)",
+          borderColor: center.id === activeId ? "var(--color-accent)" : "var(--color-border)",
+          cursor: "pointer",
+          gridColumn: activeId === center.id ? "span 2" : "span 1"
+        }}
+      >
+        <div className="mb-2">
+          <span
+            className="text-[9px] px-1.5 py-0.5 rounded font-bold text-white mb-1 inline-block"
+            style={{ backgroundColor: center.color }}
+          >
+            {center.activities.split(',')[0]}
+          </span>
+          <h4 className="font-extrabold text-sm" style={{ color: "var(--color-text-primary)" }}>
+            {center.name}
+          </h4>
+        </div>
+
+        <p className={`text-[10px] leading-snug mb-3 flex-1 overflow-hidden ${activeId === center.id ? '' : 'line-clamp-3'}`} style={{ color: "var(--color-text-secondary)" }}>
+          {center.desc}
+        </p>
+
+        <AnimatePresence>
+          {activeId === center.id && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="space-y-3 border-t pt-3"
+              style={{ borderColor: "var(--color-border)" }}
+            >
+              {center.details && (
+                <div className="space-y-1">
+                  {center.details.map((detail, i) => (
+                    <p key={i} className="text-[10px] font-medium" style={{ color: "var(--color-text-muted)" }}>• {detail}</p>
+                  ))}
+                </div>
+              )}
+              <div className="grid grid-cols-1 gap-2">
+                <a
+                  href={center.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:brightness-95"
+                  style={{ backgroundColor: "var(--color-accent)", color: "white" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCenterClick(center);
+                  }}
+                >
+                  공식 홈페이지 바로가기
+                  <span>→</span>
+                </a>
+                {center.links?.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:bg-gray-50 bg-white border"
+                    style={{ borderColor: "var(--color-border)", color: "var(--color-text-primary)" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCenterClick(center);
                     }}
                   >
-                    <div className="mb-2">
-                      <span
-                        className="text-[9px] px-1.5 py-0.5 rounded font-bold text-white mb-1 inline-block"
-                        style={{ backgroundColor: center.color }}
-                      >
-                        {center.activities.split(',')[0]}
-                      </span>
-                      <h4 className="font-extrabold text-sm" style={{ color: "var(--color-text-primary)" }}>
-                        {center.name}
-                      </h4>
-                    </div>
-
-                    <p className={`text-[10px] leading-snug mb-3 flex-1 overflow-hidden ${activeId === center.id ? '' : 'line-clamp-3'}`} style={{ color: "var(--color-text-secondary)" }}>
-                      {center.desc}
-                    </p>
-
-                    <AnimatePresence>
-                      {activeId === center.id && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="space-y-3 border-t pt-3"
-                          style={{ borderColor: "var(--color-border)" }}
-                        >
-                          {center.details && (
-                            <div className="space-y-1">
-                              {center.details.map((detail, i) => (
-                                <p key={i} className="text-[10px] font-medium" style={{ color: "var(--color-text-muted)" }}>• {detail}</p>
-                              ))}
-                            </div>
-                          )}
-                          <div className="grid grid-cols-1 gap-2">
-                            <a
-                              href={center.website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:brightness-95"
-                              style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              공식 홈페이지 바로가기
-                              <span>→</span>
-                            </a>
-                            {center.links?.map((link, i) => (
-                              <a
-                                key={i}
-                                href={link.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:bg-gray-50 bg-white border"
-                                style={{ borderColor: "var(--color-border)", color: "var(--color-text-primary)" }}
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                {link.label}
-                                <span>→</span>
-                              </a>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    {link.label}
+                    <span>→</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
                     {!activeId && (
                       <div className="text-[9px] mt-auto font-bold opacity-50" style={{ color: "var(--color-text-muted)" }}>
