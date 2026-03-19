@@ -94,25 +94,23 @@ export function useStatsData(targetName) {
   }, [targetName]);
 
   return statsData;
-<<<<<<< Updated upstream
-};
-=======
 };
 
 // 평가 내용 저장하기
-export async function saveCritics(userCritic) {
+export async function saveCritics(rating) {
   const userId = localStorage.getItem('supabase_user_id');
   if (!userId) {
     console.error("유저 ID를 찾을 수 없습니다.");
     return;
   }
-  if(userCritic) { 
+  if(rating == null) { 
     //console.error("사용자 응답이 완전하지 않습니다.");
     return;
   }
   // RPC 함수 호출 (파라미터 전달)
   const { error } = await supabase.rpc('save_user_results', {
-
+    _id: userId,
+    _grade: rating,
+    _comment: null
   });
 }
->>>>>>> Stashed changes
