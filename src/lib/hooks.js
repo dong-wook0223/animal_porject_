@@ -113,5 +113,5 @@ export async function saveCritics(rating) {
     _rating: rating,
     _comment: null
   });
-  if (error) //console.error("평가 저장 실패:", error.message);
+  //if (error) console.error("평가 저장 실패:", error.message);
 }
