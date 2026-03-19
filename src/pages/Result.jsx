@@ -248,23 +248,26 @@ export default function Result() {
   const handleKakaoShare = () => {
     if (!window.Kakao) return;
 
+    // 도메인 뒤에 /를 붙여 UTM 파라미터가 정상적으로 인식되게 함
+    const shareLink = window.location.origin + "/?utm_source=kakao&utm_medium=social&utm_campaign=share_button";
+
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
         title: `나의 소울펫은 ${top1?.name || '???'}!`,
         description: '나와 찰떡궁합인 강아지를 찾아보세요! 너의 강아지는?',
-        imageUrl: top1?.image ? `${window.location.origin}${top1.image}` : '',
+        imageUrl: top1?.image ? encodeURI(`${window.location.origin}${top1.image}`) : '',
         link: {
-          mobileWebUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
-          webUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
+          mobileWebUrl: shareLink,
+          webUrl: shareLink,
         },
       },
       buttons: [
         {
           title: '나도 테스트 해보기',
           link: {
-            mobileWebUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
-            webUrl: window.location.origin + "?utm_source=kakao&utm_medium=social&utm_campaign=share_button",
+            mobileWebUrl: shareLink,
+            webUrl: shareLink,
           },
         },
       ],
