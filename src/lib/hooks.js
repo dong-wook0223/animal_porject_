@@ -104,7 +104,7 @@ export async function saveCritics(rating) {
     return;
   }
   if(rating == null) { 
-    //console.error("사용자 응답이 완전하지 않습니다.");
+    console.error("사용자 응답이 완전하지 않습니다.");
     return;
   }
   // RPC 함수 호출 (파라미터 전달)
@@ -113,4 +113,5 @@ export async function saveCritics(rating) {
     _grade: rating,
     _comment: null
   });
+  if (error) console.error("평가 저장 실패:", error.message);
 }

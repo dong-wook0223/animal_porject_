@@ -312,6 +312,7 @@ export default function Result() {
   const handleSubmitRating = () => {
     if (rating > 0) {
       setIsSubmitted(true);
+      saveCritics(rating)
     }
   };
 
