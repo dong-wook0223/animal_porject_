@@ -74,6 +74,7 @@ export async function saveResults(userResponses, analysisData) {
   else console.log("모든 데이터가 안전하게 저장되었습니다.");
 };
 
+// 가장 많이 선택된 강아지 비율 집계
 export function useStatsData(targetName) {
   const [statsData, setStatsData] = useState([
     { name: "나와 같은 결과", value: 35, color: "#6B8F71" },
@@ -93,4 +94,25 @@ export function useStatsData(targetName) {
   }, [targetName]);
 
   return statsData;
+<<<<<<< Updated upstream
 };
+=======
+};
+
+// 평가 내용 저장하기
+export async function saveCritics(userCritic) {
+  const userId = localStorage.getItem('supabase_user_id');
+  if (!userId) {
+    console.error("유저 ID를 찾을 수 없습니다.");
+    return;
+  }
+  if(userCritic) { 
+    //console.error("사용자 응답이 완전하지 않습니다.");
+    return;
+  }
+  // RPC 함수 호출 (파라미터 전달)
+  const { error } = await supabase.rpc('save_user_results', {
+
+  });
+}
+>>>>>>> Stashed changes
