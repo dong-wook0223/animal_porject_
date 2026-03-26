@@ -1,12 +1,47 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useUsersCounter, register } from "../lib/hooks";
 
 function Landing() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   register() /*supabase 사용자 등록 함수*/
   const usersCount = useUsersCounter() /*현재 참여자 수 집계 함수*/
 
   const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className="w-full flex flex-col justify-center items-center" style={{ backgroundColor: "var(--color-bg)", minHeight: "100dvh" }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex flex-col items-center w-64 px-4"
+        >
+          <p className="font-bold tracking-tight mb-4 text-center" style={{ color: "var(--color-text-secondary)", fontSize: "0.95rem" }}>
+            나와 잘 맞는 강아지가<br/>기다리는 중...
+          </p>
+          <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--color-border)" }}>
+            <motion.div 
+              className="h-full"
+              style={{ backgroundColor: "var(--color-accent)" }}
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 2, ease: "linear" }}
+            />
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   const variants = {
     initial: { opacity: 0, y: 10 },
