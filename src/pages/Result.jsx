@@ -63,6 +63,14 @@ export default function Result() {
   const [activeId, setActiveId] = useState(null);
   const cardRefs = useRef({});
   const { scores, resetScores, userResponses } = useQuiz();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
   const isResetting = useRef(false);
   const [showToast, setShowToast] = useState(false);
   const [rating, setRating] = useState(0);
@@ -338,6 +346,31 @@ export default function Result() {
           처음으로
         </motion.button>
       </motion.main>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full flex flex-col justify-center items-center" style={{ backgroundColor: "var(--color-bg)", minHeight: "100dvh" }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex flex-col items-center w-64 px-4"
+        >
+          <p className="font-bold tracking-tight mb-4 text-center leading-relaxed" style={{ color: "var(--color-text-secondary)", fontSize: "0.95rem" }}>
+            나와 가장 닮은 강아지가<br/>앞장 서서 나오는 중..
+          </p>
+          <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--color-border)" }}>
+            <motion.div 
+              className="h-full"
+              style={{ backgroundColor: "var(--color-accent)" }}
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 2, ease: "linear" }}
+            />
+          </div>
+        </motion.div>
+      </div>
     );
   }
 
