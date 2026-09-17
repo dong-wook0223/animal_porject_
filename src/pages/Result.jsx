@@ -358,10 +358,10 @@ export default function Result() {
           className="flex flex-col items-center w-64 px-4"
         >
           <p className="font-bold tracking-tight mb-4 text-center leading-relaxed" style={{ color: "var(--color-text-secondary)", fontSize: "0.95rem" }}>
-            나와 가장 닮은 강아지가<br/>앞장 서서 나오는 중..
+            나와 가장 닮은 강아지가<br />앞장 서서 나오는 중..
           </p>
           <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--color-border)" }}>
-            <motion.div 
+            <motion.div
               className="h-full"
               style={{ backgroundColor: "var(--color-accent)" }}
               initial={{ width: "0%" }}
@@ -908,99 +908,99 @@ export default function Result() {
                   }
                 }
 
-    const handleCenterClick = (center) => {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'click_enter_homepage',
-        center_name: center.name,
-        id: center.id,
-        location_id: center.location_id
-      });
-    };
+                const handleCenterClick = (center) => {
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push({
+                    event: 'click_enter_homepage',
+                    center_name: center.name,
+                    id: center.id,
+                    location_id: center.location_id
+                  });
+                };
 
-    return displayCenters.map((center) => (
-      <motion.div
-        key={center.id}
-        ref={el => cardRefs.current[center.id] = el}
-        layout
-        whileHover={{ scale: 1.01 }}
-        onClick={() => setActiveId(activeId === center.id ? null : center.id)}
-        className={`rounded-3xl p-5 border transition-all flex flex-col overflow-hidden relative ${activeId === center.id ? 'z-20 shadow-xl' : 'z-10 shadow-sm'}`}
-        style={{
-          backgroundColor: "var(--color-surface)",
-          borderColor: center.id === activeId ? "var(--color-accent)" : "var(--color-border)",
-          cursor: "pointer",
-          gridColumn: activeId === center.id ? "span 2" : "span 1"
-        }}
-      >
-        <div className="mb-2">
-          <span
-            className="text-[9px] px-1.5 py-0.5 rounded font-bold text-white mb-1 inline-block"
-            style={{ backgroundColor: center.color }}
-          >
-            {center.activities.split(',')[0]}
-          </span>
-          <h4 className="font-extrabold text-sm" style={{ color: "var(--color-text-primary)" }}>
-            {center.name}
-          </h4>
-        </div>
-
-        <p className={`text-[10px] leading-snug mb-3 flex-1 overflow-hidden ${activeId === center.id ? '' : 'line-clamp-3'}`} style={{ color: "var(--color-text-secondary)" }}>
-          {center.desc}
-        </p>
-
-        <AnimatePresence>
-          {activeId === center.id && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="space-y-3 border-t pt-3"
-              style={{ borderColor: "var(--color-border)" }}
-            >
-              {center.details && (
-                <div className="space-y-1">
-                  {center.details.map((detail, i) => (
-                    <p key={i} className="text-[10px] font-medium" style={{ color: "var(--color-text-muted)" }}>• {detail}</p>
-                  ))}
-                </div>
-              )}
-              <div className="grid grid-cols-1 gap-2">
-                <a
-                  href={center.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:brightness-95"
-                  style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCenterClick(center);
-                  }}
-                >
-                  공식 홈페이지 바로가기
-                  <span>→</span>
-                </a>
-                {center.links?.map((link, i) => (
-                  <a
-                    key={i}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:bg-gray-50 bg-white border"
-                    style={{ borderColor: "var(--color-border)", color: "var(--color-text-primary)" }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleCenterClick(center);
+                return displayCenters.map((center) => (
+                  <motion.div
+                    key={center.id}
+                    ref={el => cardRefs.current[center.id] = el}
+                    layout
+                    whileHover={{ scale: 1.01 }}
+                    onClick={() => setActiveId(activeId === center.id ? null : center.id)}
+                    className={`rounded-3xl p-5 border transition-all flex flex-col overflow-hidden relative ${activeId === center.id ? 'z-20 shadow-xl' : 'z-10 shadow-sm'}`}
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: center.id === activeId ? "var(--color-accent)" : "var(--color-border)",
+                      cursor: "pointer",
+                      gridColumn: activeId === center.id ? "span 2" : "span 1"
                     }}
                   >
-                    {link.label}
-                    <span>→</span>
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    <div className="mb-2">
+                      <span
+                        className="text-[9px] px-1.5 py-0.5 rounded font-bold text-white mb-1 inline-block"
+                        style={{ backgroundColor: center.color }}
+                      >
+                        {center.activities.split(',')[0]}
+                      </span>
+                      <h4 className="font-extrabold text-sm" style={{ color: "var(--color-text-primary)" }}>
+                        {center.name}
+                      </h4>
+                    </div>
+
+                    <p className={`text-[10px] leading-snug mb-3 flex-1 overflow-hidden ${activeId === center.id ? '' : 'line-clamp-3'}`} style={{ color: "var(--color-text-secondary)" }}>
+                      {center.desc}
+                    </p>
+
+                    <AnimatePresence>
+                      {activeId === center.id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="space-y-3 border-t pt-3"
+                          style={{ borderColor: "var(--color-border)" }}
+                        >
+                          {center.details && (
+                            <div className="space-y-1">
+                              {center.details.map((detail, i) => (
+                                <p key={i} className="text-[10px] font-medium" style={{ color: "var(--color-text-muted)" }}>• {detail}</p>
+                              ))}
+                            </div>
+                          )}
+                          <div className="grid grid-cols-1 gap-2">
+                            <a
+                              href={center.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:brightness-95"
+                              style={{ backgroundColor: "var(--color-accent)", color: "white" }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCenterClick(center);
+                              }}
+                            >
+                              공식 홈페이지 바로가기
+                              <span>→</span>
+                            </a>
+                            {center.links?.map((link, i) => (
+                              <a
+                                key={i}
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-between w-full p-2.5 rounded-xl text-[10px] font-bold transition-all hover:bg-gray-50 bg-white border"
+                                style={{ borderColor: "var(--color-border)", color: "var(--color-text-primary)" }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCenterClick(center);
+                                }}
+                              >
+                                {link.label}
+                                <span>→</span>
+                              </a>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     {!activeId && (
                       <div className="text-[9px] mt-auto font-bold opacity-50" style={{ color: "var(--color-text-muted)" }}>

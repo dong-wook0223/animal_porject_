@@ -21,12 +21,12 @@ export const QUESTIONS = [
     },
     {
         id: 3,
-        title: "네트워킹",
-        question: "생전 처음 가본 동호회 파티. 입구에서부터 텐션이 폭발한다!",
+        title: "문제해결",
+        question: "인파로 북적이는 팝업스토어! 한정판 굿즈 위치를 찾기 어렵다면?",
         emoji: "🥳",
         answers: [
-            { text: "워후! 여기가 오늘 내가 누울 자리인가?", scores: { outgoing: 2.15 } },
-            { text: "가장 말 많은 사람 옆에 붙어서 리액션만 해주고 정보만 얻는다.", scores: { quickWitted: 1.85 } },
+            { text: "직원에게 다가가 웃으며 '굿즈 어디서 찾나요?'라고 물어본다.", scores: { outgoing: 2.15 } },
+            { text: "사람들의 동선과 푯말을 슥 보고 위치를 단번에 알아챈다.", scores: { quickWitted: 1.85 } },
         ],
     },
     {
