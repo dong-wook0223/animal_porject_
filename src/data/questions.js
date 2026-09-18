@@ -22,11 +22,11 @@ export const QUESTIONS = [
     {
         id: 3,
         title: "문제해결",
-        question: "인파로 북적이는 팝업스토어! 한정판 굿즈 위치를 찾기 어렵다면?",
-        emoji: "🥳",
+        question: "주말이라 카트로 북적이는 대형 마트! 내가 찾고 있는 물건의 위치가 보이지 않는다면?",
+        emoji: "🛒",
         answers: [
-            { text: "직원에게 다가가 웃으며 '굿즈 어디서 찾나요?'라고 물어본다.", scores: { outgoing: 2.15 } },
-            { text: "사람들의 동선과 푯말을 슥 보고 위치를 단번에 알아챈다.", scores: { quickWitted: 1.85 } },
+            { text: "저기요! 이거 어디 있어요? 지나가는 직원분께 바로 물어본다.", scores: { outgoing: 2.15 } },
+            { text: "천장 안내 표지판과 진열대 번호를 슥 보고 위치를 단번에 알아챈다.", scores: { quickWitted: 1.85 } },
         ],
     },
     {

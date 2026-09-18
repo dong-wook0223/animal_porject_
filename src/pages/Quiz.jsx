@@ -111,22 +111,101 @@ export default function Quiz() {
                     </svg>
                 </button>
 
-                {/* Progress Bar */}
+                {/* Progress Bar Container with Speech Bubble */}
                 <div
                     style={{
                         flex: 1,
-                        height: "0.5rem",
-                        borderRadius: "99px",
-                        backgroundColor: "var(--color-border)",
-                        overflow: "hidden",
+                        position: "relative",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
                     }}
                 >
-                    <motion.div
-                        style={{ backgroundColor: "var(--color-accent)", height: "100%", borderRadius: "99px" }}
-                        initial={false}
-                        animate={{ width: `${progress}%` }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                    />
+                    {/* 9번 문항부터 진행바가 말하는 네모 둥근 말풍선 */}
+                    <AnimatePresence>
+                        {currentStepIndex >= 8 && (
+                            <motion.div
+                                key={currentStepIndex}
+                                initial={{ opacity: 0, y: -6, scale: 0.85 }}
+                                animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                    scale: [0.9, 1.04, 1],
+                                    rotate: [0, -4, 4, -2, 2, 0],
+                                }}
+                                exit={{ opacity: 0, y: -4, scale: 0.85 }}
+                                transition={{
+                                    duration: 0.45,
+                                    ease: "easeOut",
+                                }}
+                                style={{
+                                    position: "absolute",
+                                    bottom: "calc(100% + 7px)",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                    zIndex: 30,
+                                    pointerEvents: "none",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        position: "relative",
+                                        backgroundColor: "var(--color-accent)",
+                                        color: "#FFFFFF",
+                                        padding: "3px 8px",
+                                        borderRadius: "8px",
+                                        fontSize: "10px",
+                                        fontWeight: 800,
+                                        letterSpacing: "-0.2px",
+                                        whiteSpace: "nowrap",
+                                        boxShadow: "0 3px 8px rgba(107, 143, 113, 0.35)",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "3px",
+                                    }}
+                                >
+                                    <span>
+                                        {totalSteps - (currentStepIndex + 1) === 0
+                                            ? "🎉 마지막 문제예요! 거의 다 왔어요!"
+                                            : `🐾 앞으로 ${totalSteps - (currentStepIndex + 1)}문제! 거의 다 왔어요!`}
+                                    </span>
+
+                                    {/* 진행바를 콕 가리키는 말풍선 아래쪽 삼각형 꼬리 */}
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            bottom: "-4px",
+                                            left: "50%",
+                                            transform: "translateX(-50%)",
+                                            width: 0,
+                                            height: 0,
+                                            borderLeft: "4px solid transparent",
+                                            borderRight: "4px solid transparent",
+                                            borderTop: "4px solid var(--color-accent)",
+                                        }}
+                                    />
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Progress Bar Track */}
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "0.5rem",
+                            borderRadius: "99px",
+                            backgroundColor: "var(--color-border)",
+                            overflow: "hidden",
+                        }}
+                    >
+                        <motion.div
+                            style={{ backgroundColor: "var(--color-accent)", height: "100%", borderRadius: "99px" }}
+                            initial={false}
+                            animate={{ width: `${progress}%` }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                        />
+                    </div>
                 </div>
 
                 <span
