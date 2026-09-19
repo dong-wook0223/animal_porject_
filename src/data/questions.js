@@ -12,11 +12,11 @@ export const QUESTIONS = [
     {
         id: 2,
         title: "인간관계",
-        question: "짝사랑하던 이성에게 '자니?'라고 보냈는데 1시간째 안 읽음!",
+        question: "연락이 잘되는 지인에게 꼭 필요한 연락을 남겼는데 답장이 안온다면?",
         emoji: "💌",
         answers: [
-            { text: "설마 나 차단했나? (오만가지 생각 중)", scores: { jealous: 1.47 } },
-            { text: "자나 보네 뭐. 꿀잠 자라 ", scores: { fearless: 1.13 } },
+            { text: "혹시 내가 뭐 실수했나? 기분 상했나? (오만가지 생각 중)", scores: { jealous: 1.47 } },
+            { text: "바쁜가 보네 뭐. 나중에 알아서 연락 오겠지.", scores: { fearless: 1.13 } },
         ],
     },
     {
@@ -32,11 +32,11 @@ export const QUESTIONS = [
     {
         id: 4,
         title: "데이트",
-        question: "애인과 처음 온 맛집. 메뉴판에 '셰프 추천 미스터리 메뉴'가 있다.",
+        question: "지인들과 처음 가본 식당. 메뉴판에 '주방장 강력 추천 미스터리 메뉴'가 있다.",
         emoji: "❓",
         answers: [
-            { text: "인생은 모험! 미스터리 메뉴 고! ", scores: { playful: 1.29 } },
-            { text: "괜히 망치지 말고 검증된 거 먹자", scores: { gentle: 1.71 } },
+            { text: "인생은 모험이지! 미스터리 메뉴 한번 시켜보자!", scores: { playful: 1.29 } },
+            { text: "괜히 모험하지 말고 가장 인기 있는 검증된 메뉴로 먹자.", scores: { gentle: 1.71 } },
         ],
     },
     {
@@ -52,11 +52,11 @@ export const QUESTIONS = [
     {
         id: 6,
         title: "공유",
-        question: "정말 가고 싶던 곳에 합격했다! 가장 먼저 이 소식을 전달 받을 사람은?",
+        question: "오랫동안 바라던 큰 목표를 마침내 이루었다! 가장 먼저 이 기쁜 소식을 알릴 곳은?",
         emoji: "🔗",
         answers: [
-            { text: "SNS에 바로 업로드! 성대한 파티각 ", scores: { cheerful: 1.63 } },
-            { text: "제일 가까운 친구 몇 명에게만 알려주기", scores: { lifelongFriend: 2.37 } },
+            { text: "모두가 알 수 있게 단체방이나 모임에 자랑한다! 파티 열자!", scores: { cheerful: 1.63 } },
+            { text: "가장 소중하고 가까운 가족이나 지인 몇 명에게만 은밀히 연락한다.", scores: { lifelongFriend: 2.37 } },
         ],
     },
     {
@@ -82,31 +82,31 @@ export const QUESTIONS = [
     {
         id: 9,
         title: "자기계발",
-        question: "갓생 살기 도전! 새벽 5시 알람이 울린다면?",
+        question: "모처럼 일찍 눈이 떠진 상쾌한 휴일 아침! 나에게 자유시간이 주어졌다면?",
         emoji: "🌅",
         answers: [
-            { text: "일단 뛰쳐나가서 공원 10바퀴 런닝", scores: { activitylevel: 2.42 } },
-            { text: "따뜻한 차 마시며 명상과 일기 쓰기", scores: { gentle: 2.29 } },
+            { text: "일단 밖으로 나가서 활기차게 산책이나 가벼운 운동을 한다.", scores: { activitylevel: 2.42 } },
+            { text: "따뜻한 차를 마시며 집에서 여유롭게 책을 읽거나 명상을 한다.", scores: { gentle: 2.29 } },
         ],
     },
     {
         id: 10,
         title: "취향",
-        question: "당신이 가장 선호하는 카페 분위기는?",
+        question: "당신이 가장 선호하는 모임 장소의 분위기는?",
         emoji: "☕",
         answers: [
-            { text: "사람 구경하며 떠들썩한 힙한 카페 ", scores: { friendly: 2.32 } },
-            { text: "숨겨진 뒷골목 나만 아는 아지트 ", scores: { independent: 2.68 } },
+            { text: "시끌벅적하고 활기찬 에너지가 넘치는 인기 명소", scores: { friendly: 2.32 } },
+            { text: "조용하게 서로의 대화에 집중할 수 있는 나만의 아지트", scores: { independent: 2.68 } },
         ],
     },
     {
         id: 11,
-        title: "연애",
-        question: "애인의 SNS에 모르는 사람이 하트를 엄청 눌렀다면?",
+        title: "인간관계",
+        question: "친하다고 생각한 지인이 말도 없이 나도 아는 사람들과 즐거운 주말 모임을 가진걸 우연히 알게된다면?",
         emoji: "🧐",
         answers: [
-            { text: "장난스럽게 '어? 인기 많네?' 하며 슬쩍 놀린다.", scores: { playful: 2.71 } },
-            { text: "누군지 은근히 신경 쓰여서 슬쩍 물어본다.", scores: { jealous: 2.53 } },
+            { text: "장난스럽게 \"나 빼고 재미있었냐?\" 하면서 쿨하게 넘긴다.", scores: { playful: 2.71 } },
+            { text: "왜 나한테는 말 안 했는지 은근히 서운해서 슬쩍 물어본다.", scores: { jealous: 2.53 } },
         ],
     },
     {

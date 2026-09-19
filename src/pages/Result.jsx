@@ -575,6 +575,38 @@ export default function Result() {
                   나를 대표하는 가장 강력한 특징입니다!
                 </p>
               </div>
+
+              {/* ─── 공유 버튼 (1차 터치포인트로 이동) ─── */}
+              <div className="mt-6 space-y-2">
+                <p className="text-[11px] font-bold text-center" style={{ color: "var(--color-text-muted)" }}>
+                  친구에게 내 성향 공유하기
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleKakaoShare}
+                    className="flex-1 py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-95"
+                    style={{
+                      backgroundColor: "#FEE500",
+                      color: "#191919",
+                    }}
+                  >
+                    <span>💬</span>
+                    카카오톡 공유
+                  </button>
+                  <button
+                    onClick={handleCopyLink}
+                    className="flex-1 py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-transform active:scale-95"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      border: "1.5px solid var(--color-border)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  >
+                    <span>🔗</span>
+                    링크 복사
+                  </button>
+                </div>
+              </div>
             </section>
           )
         }
@@ -1024,37 +1056,6 @@ export default function Result() {
           >
             다시 테스트하기
           </motion.button>
-
-          <div className="space-y-2">
-            <p className="text-[11px] font-bold text-center" style={{ color: "var(--color-text-muted)" }}>
-              친구에게 결과 공유하기
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={handleKakaoShare}
-                className="flex-1 py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2"
-                style={{
-                  backgroundColor: "#FEE500",
-                  color: "#191919",
-                }}
-              >
-                <span>💬</span>
-                카카오톡에 공유하기
-              </button>
-              <button
-                onClick={handleCopyLink}
-                className="flex-1 py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2"
-                style={{
-                  backgroundColor: "var(--color-surface)",
-                  border: "1.5px solid var(--color-border)",
-                  color: "var(--color-text-secondary)",
-                }}
-              >
-                <span>🔗</span>
-                링크 복사하기
-              </button>
-            </div>
-          </div>
 
           {/* ────── 별점 평가 섹션 ────── */}
           <div className="pt-10 pb-6 flex flex-col items-center gap-5 bg-[rgba(107,143,113,0.03)] rounded-3xl border border-[rgba(107,143,113,0.1)] mt-4">

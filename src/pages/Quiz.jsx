@@ -250,12 +250,14 @@ export default function Quiz() {
                     {/* Question Text */}
                     <h1
                         style={{
-                            color: "var(--color-text-primary)",
-                            fontSize: "1.1rem",
+                            color: "#111111",
+                            fontSize: "1.25rem",
                             fontWeight: 800,
-                            lineHeight: 1.4,
-                            marginBottom: "0.75rem",
+                            lineHeight: 1.55,
+                            letterSpacing: "-0.01em",
+                            marginBottom: "1.5rem",
                             whiteSpace: "pre-wrap",
+                            wordBreak: "keep-all",
                             flexShrink: 0,
                         }}
                     >
@@ -282,20 +284,26 @@ export default function Quiz() {
                     </div>
 
                     {/* Answer Buttons */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", flexShrink: 0 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", flexShrink: 0, paddingBottom: "0.5rem" }}>
                         {currentQuestion.answers.map((ans, idx) => (
                             <motion.button
                                 key={idx}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => handleAnswer(ans.scores, idx + 1)}
                                 className="answer-btn"
-                                style={{ padding: "0.8rem 1rem", fontSize: "0.875rem" }}
+                                style={{ 
+                                    padding: "1.1rem 1.25rem", 
+                                    fontSize: "0.95rem",
+                                    lineHeight: 1.5,
+                                    wordBreak: "keep-all",
+                                    textAlign: "left"
+                                }}
                             >
-                                <span>{ans.text}</span>
+                                <span style={{ flex: 1, paddingRight: "0.5rem" }}>{ans.text}</span>
                                 <div
                                     style={{
-                                        width: "1.1rem",
-                                        height: "1.1rem",
+                                        width: "1.2rem",
+                                        height: "1.2rem",
                                         borderRadius: "50%",
                                         border: "1.5px solid var(--color-border)",
                                         flexShrink: 0,
