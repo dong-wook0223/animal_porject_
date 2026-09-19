@@ -22,7 +22,7 @@ export const CENTERS = [
         name: "동물권행동 카라",
         shortName: "카라",
         activities: "봉사활동, 임시보호, 입양",
-        location: "서울 마포, 경기 파주",
+        location: "경기 파주",
         desc: "동물의 권리와 복지를 증진하는 시민단체로, 체계적인 입양 절차를 운영합니다.",
         website: "https://www.ekara.org/",
         color: "#D4A373",
@@ -31,7 +31,6 @@ export const CENTERS = [
             { label: "입양 상세보기", url: "https://www.ekara.org/kams/adopt?status=%EC%9E%85%EC%96%91%EA%B0%80%EB%8A%A5" }
         ],
         subLocations: [
-            { name: "아름품(마포)", addr: "서울시 마포구 잔다리로 122", lat: 37.5558, lng: 126.9158 },
             { name: "더봄센터(파주)", addr: "경기도 파주시 법원읍 술이홀로 1409", lat: 37.848, lng: 126.862 }
         ]
     },
@@ -40,7 +39,7 @@ export const CENTERS = [
         name: "행동하는 동물사랑",
         shortName: "행동사",
         activities: "봉사활동, 임시보호, 입양",
-        location: "파주, 일산, 신림",
+        location: "파주, 일산",
         desc: "시민들이 자발적으로 참여하는 단체로, 보호와 입양 캠페인을 진행합니다.",
         website: "https://cafe.naver.com/pajupetlove?iframe_url=/ArticleList.nhn%3Fsearch.clubid=24693721%26search.menuid=12%26search.boardtype=L",
         color: "#9C6644",
@@ -49,8 +48,7 @@ export const CENTERS = [
         ],
         subLocations: [
             { name: "쉼터(파주)", addr: "파주", lat: 37.885, lng: 126.732 },
-            { name: "쉼뜰(일산)", addr: "일산", lat: 37.658, lng: 126.832 },
-            { name: "입양뜰(신림)", addr: "서울시 관악구 신림", lat: 37.485, lng: 126.929 }
+            { name: "쉼뜰(일산)", addr: "일산", lat: 37.658, lng: 126.832 }
         ]
     },
     {
