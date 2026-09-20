@@ -862,22 +862,6 @@ export default function Result() {
                   url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
 
-                {/* HDS Area Shading for all subLocations */}
-                {randomizedCenters.find(c => c.id === 3)?.subLocations.map((loc, idx) => (
-                  <Circle
-                    key={`hds-circle-${idx}`}
-                    center={[loc.lat, loc.lng]}
-                    radius={6000} // Moderate size as requested
-                    pathOptions={{
-                      fillColor: '#9C6644',
-                      fillOpacity: 0.25, // Higher opacity for visibility
-                      color: '#9C6644',
-                      weight: 1,
-                      dashArray: '3, 6'
-                    }}
-                  />
-                ))}
-
                 {randomizedCenters.flatMap(org =>
                   org.subLocations.map((loc, idx) => (
                     <Marker

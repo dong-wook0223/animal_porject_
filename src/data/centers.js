@@ -47,8 +47,8 @@ export const CENTERS = [
             { label: "봉사/임보 신청방법", url: "https://cafe.naver.com/f-e/cafes/24693721/menus/293?viewType=L" }
         ],
         subLocations: [
-            { name: "쉼터(파주)", addr: "파주", lat: 37.885, lng: 126.732 },
-            { name: "쉼뜰(일산)", addr: "일산", lat: 37.658, lng: 126.832 }
+            { name: "쉼터 (파주 인근)", addr: "경기도 파주시 인근", lat: 37.885, lng: 126.732 },
+            { name: "쉼뜰 (일산 인근)", addr: "경기도 고양시 일산 인근", lat: 37.658, lng: 126.832 }
         ]
     },
     {
