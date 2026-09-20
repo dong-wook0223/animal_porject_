@@ -126,21 +126,23 @@ export default function Quiz() {
                         {currentStepIndex >= 8 && (
                             <motion.div
                                 key={currentStepIndex}
-                                initial={{ opacity: 0, y: -6, scale: 0.85 }}
+                                initial={{ opacity: 0, y: 6, scale: 0.85 }}
                                 animate={{
                                     opacity: 1,
                                     y: 0,
                                     scale: [0.9, 1.04, 1],
-                                    rotate: [0, -4, 4, -2, 2, 0],
+                                    rotate: (currentStepIndex === 8 || currentStepIndex === totalSteps - 1) 
+                                        ? [0, -4, 4, -2, 2, 0] 
+                                        : 0,
                                 }}
-                                exit={{ opacity: 0, y: -4, scale: 0.85 }}
+                                exit={{ opacity: 0, y: 4, scale: 0.85 }}
                                 transition={{
                                     duration: 0.45,
                                     ease: "easeOut",
                                 }}
                                 style={{
                                     position: "absolute",
-                                    bottom: "calc(100% + 7px)",
+                                    top: "calc(100% + 8px)",
                                     left: "50%",
                                     transform: "translateX(-50%)",
                                     zIndex: 30,
@@ -170,18 +172,18 @@ export default function Quiz() {
                                             : `🐾 앞으로 ${totalSteps - (currentStepIndex + 1)}문제! 거의 다 왔어요!`}
                                     </span>
 
-                                    {/* 진행바를 콕 가리키는 말풍선 아래쪽 삼각형 꼬리 */}
+                                    {/* 진행바를 콕 가리키는 말풍선 위쪽 삼각형 꼬리 */}
                                     <div
                                         style={{
                                             position: "absolute",
-                                            bottom: "-4px",
+                                            top: "-4px",
                                             left: "50%",
                                             transform: "translateX(-50%)",
                                             width: 0,
                                             height: 0,
                                             borderLeft: "4px solid transparent",
                                             borderRight: "4px solid transparent",
-                                            borderTop: "4px solid var(--color-accent)",
+                                            borderBottom: "4px solid var(--color-accent)",
                                         }}
                                     />
                                 </div>
