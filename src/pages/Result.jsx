@@ -773,14 +773,6 @@ export default function Result() {
                     <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={0} />
                   ))}
                 </Pie>
-                <RechartsTooltip
-                  formatter={(value) => [`${value}%`, ""]}
-                  contentStyle={{
-                    borderRadius: "12px",
-                    border: "1.5px solid var(--color-border)",
-                    fontSize: "0.8rem",
-                  }}
-                />
                 <Legend
                   verticalAlign="bottom"
                   height={36}
