@@ -270,7 +270,8 @@ export default function Result() {
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.origin);
+      // 지정된 UTM 단축 링크 복사
+      await navigator.clipboard.writeText("https://bit.ly/4rjmNs1");
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
     } catch (err) {
