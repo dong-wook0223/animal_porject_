@@ -62,6 +62,13 @@ export default function App() {
     setVariant(storedVariant);
     setIsReady(true);
     
+    // [GTM] A/B 테스트 그룹 정보를 데이터 레이어에 전송 (결과 분석용)
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "ab_test_group_assigned",
+      ab_variant: storedVariant
+    });
+    
     console.log(`[A/B Test] 유저가 할당된 버전: ${storedVariant}`);
   }, []);
 
