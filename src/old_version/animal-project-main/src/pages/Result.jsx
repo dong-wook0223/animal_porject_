@@ -825,8 +825,8 @@ export default function Result() {
               >
                 {/* Minimalist CartoDB Positron Tiles */}
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                  url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
                 {/* HDS Area Shading for all subLocations */}
@@ -1113,10 +1113,10 @@ export default function Result() {
         <AnimatePresence>
           {showToast && (
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[1000] px-6 py-3 rounded-full shadow-lg text-white text-sm font-bold"
+              initial={{ opacity: 0, y: 50, x: "-50%" }}
+              animate={{ opacity: 1, y: 0, x: "-50%" }}
+              exit={{ opacity: 0, scale: 0.95, x: "-50%" }}
+              className="fixed bottom-10 left-1/2 z-[1000] px-6 py-3 rounded-full shadow-lg text-white text-sm font-bold"
               style={{ backgroundColor: "rgba(0, 0, 0, 0.8)", backdropFilter: "blur(4px)" }}
             >
               링크가 복사되었습니다.
