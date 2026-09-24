@@ -32,7 +32,7 @@ export const QUESTIONS = [
     {
         id: 4,
         title: "데이트",
-        question: "지인들과 처음 가본 식당. 메뉴판에 '주방장 강력 추천 미스터리 메뉴'가 있다.",
+        question: "지인들과 처음 가본 식당. 메뉴판에 '셰프 강력 추천 미스터리 메뉴'가 있다.",
         emoji: "❓",
         answers: [
             { text: "인생은 모험이지! 미스터리 메뉴 한번 시켜보자!", scores: { playful: 1.29 } },
