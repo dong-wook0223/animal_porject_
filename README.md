@@ -10,7 +10,7 @@
 ![GA4](https://img.shields.io/badge/GA4_&_GTM-BigQuery_Export-E37400?style=flat-square&logo=googleanalytics&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
 
-- **Live Demo**: `https://<your-vercel-domain>.vercel.app` *(배포 URL 입력)*
+
 - **핵심 역량 포인트**: `Product Analytics` · `A/B Testing` · `Event Taxonomy 설계` · `Frontend Engineering`
 
 ---
